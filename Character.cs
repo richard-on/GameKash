@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RoleGame
+namespace GameKash
 {
     enum Conditions { Normal, Weakened, Sick, Poisoned, Paralyzed, Dead }
     enum Races { Human, Gnome, Elf, Orc, Goblin }
@@ -28,7 +28,7 @@ namespace RoleGame
             } 
             set
             {
-                if (value < age)
+                if (value < age || value < 0)
                     throw new Exception("Invalid Age value");
                 age = value;
             }
