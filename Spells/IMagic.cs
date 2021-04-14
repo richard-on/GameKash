@@ -3,18 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace GameKash {
-    interface IMagic {
-        void MagicCast(Character character, double power) {
-            
-        }
-        void MagicCast(double power) {
-
-        }
-        void MagicCast(Character character) {
-
-        }
-        void MagicCast() {
-
-        }
+    public interface IMagic
+    {
+        //This interface includes only MagicCasts' without `double power` parameter as it is unused in most implementations
+        //IPower.cs shall be used if `double power` is required.
+        void MagicCast(Wizard wizard, Character character);
+        void MagicCast(Wizard wizard);
     }
 }

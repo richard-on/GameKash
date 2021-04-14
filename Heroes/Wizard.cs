@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameKash
 {
-    class Wizard : Character
+    public class Wizard : Character
     {
         public double MaxMana { get; }
         private double current_mana;
@@ -23,13 +23,13 @@ namespace GameKash
                 current_mana = value;
             }
         }
-        public Wizard(string name, Races race, Genders gender, int age, double max_health, double max_mana) 
-            :base(name, race, gender, age, max_health)
+        public Wizard(string name, Races race, Genders gender, int age, double maxHealth, double maxMana, int experience = 0) 
+            :base(name, race, gender, age, maxHealth, experience)
         {
-            if (max_mana <= 0)
+            if (maxMana <= 0)
                 throw new Exception("Invalid Mana value");
-            MaxMana = max_mana;
-            CurrentMana = max_mana;
+            MaxMana = maxMana;
+            CurrentMana = maxMana;
         }
         public override string ToString()
         {

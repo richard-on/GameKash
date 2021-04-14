@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace GameKash
 {
-    enum Conditions { Normal, Weakened, Sick, Poisoned, Paralyzed, Dead }
-    enum Races { Human, Gnome, Elf, Orc, Goblin }
-    enum Genders { Male, Female }
-    class Character : IComparable
+    public enum Conditions { Normal, Weakened, Sick, Poisoned, Paralyzed, Dead }
+    public enum Races { Human, Gnome, Elf, Orc, Goblin }
+    public enum Genders { Male, Female }
+    public class Character : IComparable
     {
         private static int Next_ID { get; set; } = 0;
         public int ID { get; }
@@ -21,6 +21,7 @@ namespace GameKash
         public Genders Gender { get; }
         private int age;
         public int Age
+
         { 
             get
             { 
@@ -63,21 +64,22 @@ namespace GameKash
             }
         }
 
-        public Character(string name, Races race, Genders gender, int age, double max_health)
+        public Character(string name, Races race, Genders gender, int age, double maxHealth, int experience = 0)
         {
             if (name == null || name.Contains('\0'))
                 throw new Exception("Invalid Name value");
             if(age < 0)
                 throw new Exception("Invalid Age value");
-            if(max_health <= 0)
+            if(maxHealth <= 0)
                 throw new Exception("Invalid Health value");
             ID = ++Next_ID;
             Name = name;
             Race = race;
             Gender = gender;
             Age = age;
-            MaxHealth = max_health;
+            MaxHealth = maxHealth;
             CurrentHealth = MaxHealth;
+            Experience = experience;
         }
         public int CompareTo(object o)
         {
