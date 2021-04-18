@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace GameKash.Artefacts
 {
@@ -12,7 +13,8 @@ namespace GameKash.Artefacts
         }
         
         private const bool IsRenewable = false;
-        private const int Power = 0;
+        private const int Power = 1;
+        private static int _power;
         private bool isUsed = false;
         private Volumes _volume;
         private int IntVolume;
@@ -34,15 +36,17 @@ namespace GameKash.Artefacts
                 _volume = Volumes.Small;
                 IntVolume = 10;
             }
-            
+
+            _power = Power;
+
         }
         
         //This class has the same problems with used items check as AquaVitae.cs
         //Moreover, this artefact can only apply to another wizard and it poses obvious problems.
         //TODO: Wisely deal with situation of one wizard adding mana to another wizard
-        public override void ArtefactCast(Wizard issuingWizard, Character character)
+        public override void MagicCast(Wizard issuingWizard, Character character)
         {
-            if (!isUsed)
+            if (_power > 0)
             {
                 if (character is Wizard wizard)
                 {
@@ -55,11 +59,11 @@ namespace GameKash.Artefacts
                         wizard.CurrentMana = wizard.MaxMana;
                     }
 
-                    isUsed = true;
+                    _power--;
                 }
                 else
                 {
-                    throw new Exception("This artefact can only apply to a wizard.");
+                    throw new Exception("This artefact can only be applied to a wizard.");
                 }
             }
             else
@@ -68,9 +72,9 @@ namespace GameKash.Artefacts
             }
         }
 
-        public override void ArtefactCast(Wizard wizard)
+        public override void MagicCast(Wizard wizard)
         {
-            if (!isUsed)
+            if (_power > 0)
             {
                 if (wizard.CurrentMana + IntVolume <= wizard.MaxMana)
                 {
@@ -80,7 +84,8 @@ namespace GameKash.Artefacts
                 {
                     wizard.CurrentMana = wizard.MaxMana;
                 }
-                isUsed = true;
+
+                _power--;
             }
             else
             {

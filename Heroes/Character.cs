@@ -95,7 +95,7 @@ namespace GameKash
             else if (CurrentHealth / MaxHealth >= 0.1 && Condition == Conditions.Weakened)
                 Condition = Conditions.Normal;
             if (CurrentHealth == 0)
-                Condition = Conditions.Dead;
+                Condition = Conditions.Dead; 
         }
         public override string ToString()
         {

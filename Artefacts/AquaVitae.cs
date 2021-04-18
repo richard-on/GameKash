@@ -14,7 +14,8 @@ namespace GameKash.Artefacts
         }
         
         private const bool IsRenewable = false;
-        private const int Power = 0;
+        private const int Power = 1;
+        private static int _power;
         private bool isUsed = false;
         private Volumes _volume;
         private int IntVolume;
@@ -37,12 +38,14 @@ namespace GameKash.Artefacts
                 IntVolume = 10;
             }
             
+            _power = Power;
+            
         }
         
         //TODO: Implement better logic to check if the item has been used.
-        public override void ArtefactCast(Wizard wizard, Character character)
+        public override void MagicCast(Wizard wizard, Character character)
         {
-            if (!isUsed)
+            if (_power > 0)
             {
                 if (character.CurrentHealth + IntVolume <= character.MaxHealth)
                 {
@@ -52,7 +55,7 @@ namespace GameKash.Artefacts
                 {
                     character.CurrentHealth = character.MaxHealth;
                 }
-                isUsed = true;
+                _power--;
             }
             else
             {
@@ -60,9 +63,9 @@ namespace GameKash.Artefacts
             }
         }
 
-        public override void ArtefactCast(Wizard wizard)
+        public override void MagicCast(Wizard wizard)
         {
-            if (!isUsed)
+            if (_power > 0)
             {
                 if (wizard.CurrentHealth + IntVolume <= wizard.MaxHealth)
                 {
@@ -72,7 +75,7 @@ namespace GameKash.Artefacts
                 {
                     wizard.CurrentHealth = wizard.MaxHealth;
                 }
-                isUsed = true;
+                _power--;
             }
             else
             {
