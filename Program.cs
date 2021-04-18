@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GameKash.Artefacts;
 using GameKash.Spells;
+using GameKash.HeroTools;
 
 namespace GameKash
 {
@@ -17,6 +18,30 @@ namespace GameKash
                 40);
             Character Thunder = new Character("Thunder", Races.Orc, Genders.Male, 40, 2700);
             Kenarius.CurrentHealth = 850;
+
+
+
+            Console.WriteLine("Inventory demonstration");
+            // Artifacts can be picked up and dropped.
+            Thunder.GetArtefact(new AquaVitae(AquaVitae.Volumes.Large));
+            Console.WriteLine(Thunder.inventory);
+            Console.WriteLine(Kenarius.inventory);
+            Console.WriteLine("~~~~~~~~~~~~");
+            // Artifacts can be transferred, already zaebis:
+            Thunder.GiveArtefact(Kenarius, new AquaVitae(AquaVitae.Volumes.Large));
+            Console.WriteLine(Thunder.inventory);
+            Console.WriteLine(Kenarius.inventory);
+
+            Console.WriteLine("Spells demonstration");
+            // Wizards can learn a spell
+            Kenarius.LearnSpell(new AddHealth(20, false, true));
+            Console.WriteLine(Kenarius.inventory);
+            Console.WriteLine("~~~~~~~~~~~~");
+            // And forget it
+            Kenarius.ForgetSpell(new AddHealth(20, false, true));
+            Console.WriteLine(Kenarius.inventory);
+
+
 
             Console.WriteLine(Kenarius.CurrentHealth);
             Console.WriteLine("********************");

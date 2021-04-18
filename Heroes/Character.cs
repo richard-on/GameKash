@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameKash.Artefacts;
+using GameKash.HeroTools;
 
 namespace GameKash
 {
@@ -11,6 +13,7 @@ namespace GameKash
     public enum Genders { Male, Female }
     public class Character : IComparable
     {
+        public Inventory inventory;
         private static int Next_ID { get; set; } = 0;
         public int ID { get; }
         public string Name { get; }
@@ -72,6 +75,7 @@ namespace GameKash
                 throw new Exception("Invalid Age value");
             if(maxHealth <= 0)
                 throw new Exception("Invalid Health value");
+            inventory = new Inventory();
             ID = ++Next_ID;
             Name = name;
             Race = race;
@@ -108,6 +112,15 @@ namespace GameKash
                    $"Max Health: {MaxHealth}\n" +
                    $"Current Health: {CurrentHealth}\n" +
                    $"Experience: {Experience}";
+        }
+        
+        public void GetArtefact(Artefact artefact) {
+            this.inventory.GetArtefact(artefact);
+        }
+
+        public void GiveArtefact(Character character, Artefact artefact) {
+            this.inventory.DropArtefact(artefact);
+            character.inventory.GetArtefact(artefact);
         }
     }
 }

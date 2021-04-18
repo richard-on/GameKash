@@ -50,5 +50,13 @@ namespace GameKash
                 CurrentMana = 0;
             }
         }
+
+        public void LearnSpell(Spell spell) {
+            inventory.LearnSpell(spell);
+        }
+        public void ForgetSpell(Spell spell) {
+            inventory.ForgetSpell(spell);
+        }
+
     }
 }
