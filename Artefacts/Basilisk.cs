@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Reflection;
+using System.Resources;
 
 namespace GameKash.Artefacts
 {
     public class Basilisk : Artefact
     {
+        ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
+        
         private const bool IsRenewable = false;
         private const int Power = 1;
         private static int _power;
@@ -22,11 +26,11 @@ namespace GameKash.Artefacts
             }
             else if(character.Condition != Conditions.Poisoned)
             {
-                Console.Error.WriteLine("Character is not poisoned.");
+                Console.Error.WriteLine(rm.GetString("CharacterNotPoisoned"));
             }
             else
             {
-                Console.Error.WriteLine("This artefact has already been used and can't be renewed.");
+                Console.Error.WriteLine(rm.GetString("IsNotRenewable"));
             }
         }
 
@@ -39,11 +43,11 @@ namespace GameKash.Artefacts
             }
             else if(wizard.Condition != Conditions.Poisoned)
             {
-                Console.Error.WriteLine("Wizard is not poisoned.");
+                Console.Error.WriteLine(rm.GetString("WizardNotPoisoned"));
             }
             else
             {
-                Console.Error.WriteLine("This artefact has already been used and can't be renewed.");
+                Console.Error.WriteLine(rm.GetString("IsNotRenewable"));
             }
         }
     }

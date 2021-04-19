@@ -1,29 +1,31 @@
 ﻿using System;
+using System.Reflection;
+using System.Resources;
 using GameKash.Spells;
 
 namespace GameKash.Artefacts
 {
     public class LightningStaff : Artefact, IPower
     {
+        ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
 
         private const bool IsRenewable = true;
         private static double _power;
-        
+
         public LightningStaff(double power) : base(power, IsRenewable)
         {
+            if (power < 0)
+            {
+                throw new ArgumentException(rm.GetString("InvalidPowerValue"));
+            }
             _power = power;
         }
 
         private bool IsValidInput(double power)
         {
-            if (_power < 0)
-            {
-                Console.Error.WriteLine("This staff can't be used. This item's power is 0.");
-                return false;
-            }
             if (power < 0)
             {
-                throw new ArgumentException("Entered power value is invalid.");
+                throw new ArgumentException(rm.GetString("InvalidPowerValue"));
             }
             if (power > _power)
             {
@@ -56,9 +58,7 @@ namespace GameKash.Artefacts
         {
             if (IsValidInput(power))
             {
-                Console.Error.WriteLine("Warning! You are about to cast this spell on your hero." +
-                                  " This will decrease your OWN hero's health. Type \"Y\" if you wish to proceed." +
-                                  "Type \"N\" if you wish to discard this action.");
+                Console.Error.WriteLine(rm.GetString("SelfDamageWarning"));
                 string answer = Console.ReadLine();
                 do
                 {
@@ -77,12 +77,12 @@ namespace GameKash.Artefacts
                     }
                     else if(answer.ToUpper() == "N")
                     {
-                        Console.WriteLine("This action has been successfully discarded.");
+                        Console.WriteLine(rm.GetString("ActionDiscarded"));
                         return;
                     }
                     else
                     {
-                        Console.WriteLine("Can't recognise this command. Please try again.");
+                        Console.WriteLine(rm.GetString("InvalidUserCmd"));
                         answer = Console.ReadLine();
                     }
                     
@@ -109,7 +109,7 @@ namespace GameKash.Artefacts
             }
             else
             {
-                Console.Error.WriteLine("This staff can't be used. This item's power is 0.");
+                Console.Error.WriteLine(rm.GetString("NullItemPower"));
             }
         }
 
@@ -117,9 +117,7 @@ namespace GameKash.Artefacts
         {
             if (_power > 0)
             {
-                Console.Error.WriteLine("Warning! You are about to cast this spell on your hero." +
-                                        " This will decrease your OWN hero's health. Type \"Y\" if you wish to proceed." +
-                                        "Type \"N\" if you wish to discard this action.");
+                Console.Error.WriteLine(rm.GetString("SelfDamageWarning"));
                 string answer = Console.ReadLine();
                 do
                 {
@@ -138,12 +136,12 @@ namespace GameKash.Artefacts
                     }
                     else if(answer.ToUpper() == "N")
                     {
-                        Console.WriteLine("This action has been successfully discarded.");
+                        Console.WriteLine(rm.GetString("ActionDiscarded"));
                         return;
                     }
                     else
                     {
-                        Console.WriteLine("Can't recognise this command. Please try again.");
+                        Console.WriteLine(rm.GetString("InvalidUserCmd"));
                         answer = Console.ReadLine();
                     }
                     

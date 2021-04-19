@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="SelfDamageWarning" xml:space="preserve">
+        <value>Warning! You are about to cast this spell on your hero. This will decrease your OWN hero's health. Type "Y" if you wish to proceed. Type "N" if you wish to discard this action.</value>
+    </data>
+    <data name="ActionDiscarded" xml:space="preserve">
+        <value>This action has been successfully discarded.</value>
+    </data>
+    <data name="InvalidUserCmd" xml:space="preserve">
+        <value>Can't recognise this command. Please try again.</value>
+    </data>
+    <data name="NullItemPower" xml:space="preserve">
+        <value>This artefact can't be used. This item's power is 0.</value>
+    </data>
+    <data name="InvalidPowerValue" xml:space="preserve">
+        <value>Entered power value is invalid.</value>
+    </data>
+    <data name="CharacterNotDead" xml:space="preserve">
+        <value>Character is not dead.</value>
+    </data>
+    <data name="CharacterNotParalysed" xml:space="preserve">
+        <value>Character is not paralysed.</value>
+    </data>
+    <data name="CharacterNotPoisoned" xml:space="preserve">
+        <value>Character is not poisoned.</value>
+    </data>
+    <data name="WizardNotDead" xml:space="preserve">
+        <value>Wizard is not dead.</value>
+    </data>
+    <data name="WizardNotParalysed" xml:space="preserve">
+        <value>Wizard is not paralysed.</value>
+    </data>
+    <data name="WizardNotPoisoned" xml:space="preserve">
+        <value>Wizard is not poisoned.</value>
+    </data>
+    <data name="IsNotRenewable" xml:space="preserve">
+        <value>This artefact has already been used and can't be renewed.</value>
+    </data>
+    <data name="OnlyForWizard" xml:space="preserve">
+        <value>This artefact can only be applied to a wizard.</value>
+    </data>
+    <data name="InvalidAge" xml:space="preserve">
+        <value>Invalid Age value.</value>
+    </data>
+    <data name="InvalidHealth" xml:space="preserve">
+        <value>Invalid Health value.</value>
+    </data>
+    <data name="InvalidName" xml:space="preserve">
+        <value>Invalid Name.</value>
+    </data>
+    <data name="InvalidMana" xml:space="preserve">
+        <value>Invalid Mana value.</value>
+    </data>
+    <data name="LowMana" xml:space="preserve">
+        <value>Not enough mana.</value>
+    </data>
+    <data name="CharacterNotSick" xml:space="preserve">
+        <value>Character is not sick.</value>
+    </data>
+    <data name="WizardNotSick" xml:space="preserve">
+        <value>Wizard is not sick.</value>
+    </data>
+</root>

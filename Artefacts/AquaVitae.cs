@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection;
+using System.Resources;
 
 namespace GameKash.Artefacts
 {
@@ -6,6 +8,8 @@ namespace GameKash.Artefacts
     //medieval vodka. So, I believe this is the best class name I can imagine.
     public class AquaVitae : Artefact
     {
+        ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
+        
         public enum Volumes
         {
             Small = 10,
@@ -16,30 +20,27 @@ namespace GameKash.Artefacts
         private const bool IsRenewable = false;
         private const int Power = 1;
         private static int _power;
-        private bool isUsed = false;
-        private Volumes _volume;
-        private int IntVolume;
+        private static int _intVolume;
 
         public AquaVitae(Volumes volume) : base(Power, IsRenewable)
         {
-            if (volume == Volumes.Large)
+            switch (volume)
             {
-                _volume = Volumes.Large;
-                IntVolume = 50;
-            }
-            else if (volume == Volumes.Normal)
-            {
-                _volume = Volumes.Normal;
-                IntVolume = 25;
-            }
-            else if (volume == Volumes.Small)
-            {
-                _volume = Volumes.Small;
-                IntVolume = 10;
+                case Volumes.Large:
+                    _intVolume = 50;
+                    break;
+                case Volumes.Normal:
+                    _intVolume = 25;
+                    break;
+                case Volumes.Small:
+                    _intVolume = 10;
+                    break;
+                default:
+                    _intVolume = 25;
+                    break;
             }
             
             _power = Power;
-            
         }
         
         //TODO: Implement better logic to check if the item has been used.
@@ -47,9 +48,9 @@ namespace GameKash.Artefacts
         {
             if (_power > 0)
             {
-                if (character.CurrentHealth + IntVolume <= character.MaxHealth)
+                if (character.CurrentHealth + _intVolume <= character.MaxHealth)
                 {
-                    character.CurrentHealth += IntVolume;
+                    character.CurrentHealth += _intVolume;
                 }
                 else
                 {
@@ -59,7 +60,7 @@ namespace GameKash.Artefacts
             }
             else
             {
-                throw new Exception("This artefact has already been used and can't be renewed.");
+                throw new Exception(rm.GetString("IsNotRenewable"));
             }
         }
 
@@ -67,9 +68,9 @@ namespace GameKash.Artefacts
         {
             if (_power > 0)
             {
-                if (wizard.CurrentHealth + IntVolume <= wizard.MaxHealth)
+                if (wizard.CurrentHealth + _intVolume <= wizard.MaxHealth)
                 {
-                    wizard.CurrentHealth += IntVolume;
+                    wizard.CurrentHealth += _intVolume;
                 }
                 else
                 {
@@ -79,7 +80,7 @@ namespace GameKash.Artefacts
             }
             else
             {
-                throw new Exception("This artefact has already been used and can't be renewed.");
+                throw new Exception(rm.GetString("IsNotRenewable"));
             }
         }
     }

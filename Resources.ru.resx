@@ -1,0 +1,74 @@
+﻿<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="ActionDiscarded" xml:space="preserve">
+        <value>Это действие было успешно отменено.</value>
+    </data>
+    <data name="CharacterNotDead" xml:space="preserve">
+        <value>Персонаж не мёртв.</value>
+    </data>
+    <data name="CharacterNotParalysed" xml:space="preserve">
+        <value>Персонаж не парализован.</value>
+    </data>
+    <data name="CharacterNotPoisoned" xml:space="preserve">
+        <value>Персонаж не отравлен.</value>
+    </data>
+    <data name="CharacterNotSick" xml:space="preserve">
+        <value>Персонаж не болен.</value>
+    </data>
+    <data name="InvalidAge" xml:space="preserve">
+        <value>Неверное значение возраста.</value>
+    </data>
+    <data name="InvalidHealth" xml:space="preserve">
+        <value>Неверное значение здоровья.</value>
+    </data>
+    <data name="InvalidMana" xml:space="preserve">
+        <value>Неверное значение маны.</value>
+    </data>
+    <data name="InvalidName" xml:space="preserve">
+        <value>Недопустимое имя.</value>
+    </data>
+    <data name="WizardNotDead" xml:space="preserve">
+        <value>Маг не мёртв.</value>
+    </data>
+    <data name="WizardNotParalysed" xml:space="preserve">
+        <value>Маг не парализован.</value>
+    </data>
+    <data name="WizardNotPoisoned" xml:space="preserve">
+        <value>Маг не отравлен.</value>
+    </data>
+    <data name="WizardNotSick" xml:space="preserve">
+        <value>Маг не болен.</value>
+    </data>
+    <data name="SelfDamageWarning" xml:space="preserve">
+        <value>Внимание! Вы собираетесь применить это заклинание против собственного героя. Ваш герой потеряет здоровье. Напишите "Y", если желаете продолжить. Напишите "N", если желаете отменить данное действие.</value>
+    </data>
+    <data name="InvalidUserCmd" xml:space="preserve">
+        <value>Недопустимая команда. Попробуйте снова.</value>
+    </data>
+    <data name="IsNotRenewable" xml:space="preserve">
+        <value>Этот артефакт уже был использован и не может использоваться повторно.</value>
+    </data>
+    <data name="LowMana" xml:space="preserve">
+        <value>Недостаточно маны.</value>
+    </data>
+    <data name="InvalidPowerValue" xml:space="preserve">
+        <value>Недопутимое значение мощности.</value>
+    </data>
+    <data name="NullItemPower" xml:space="preserve">
+        <value>Артефакт не может быть использован, так как его мощность равна 0.</value>
+    </data>
+    <data name="OnlyForWizard" xml:space="preserve">
+        <value>Этот артефакт может быть применён только к магу.</value>
+    </data>
+</root>

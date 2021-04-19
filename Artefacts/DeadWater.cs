@@ -1,10 +1,13 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Reflection;
+using System.Resources;
 
 namespace GameKash.Artefacts
 {
     public class DeadWater : Artefact
     {
+        ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
+        
         public enum Volumes
         {
             Small = 10,
@@ -15,28 +18,25 @@ namespace GameKash.Artefacts
         private const bool IsRenewable = false;
         private const int Power = 1;
         private static int _power;
-        private bool isUsed = false;
-        private Volumes _volume;
-        private int IntVolume;
+        private static int _intVolume;
 
         public DeadWater(Volumes volume) : base(Power, IsRenewable)
         {
-            if (volume == Volumes.Large)
+            switch (volume)
             {
-                _volume = Volumes.Large;
-                IntVolume = 50;
+                case Volumes.Large:
+                    _intVolume = 50;
+                    break;
+                case Volumes.Normal:
+                    _intVolume = 25;
+                    break;
+                case Volumes.Small:
+                    _intVolume = 10;
+                    break;
+                default:
+                    _intVolume = 25;
+                    break;
             }
-            else if (volume == Volumes.Normal)
-            {
-                _volume = Volumes.Normal;
-                IntVolume = 25;
-            }
-            else if (volume == Volumes.Small)
-            {
-                _volume = Volumes.Small;
-                IntVolume = 10;
-            }
-
             _power = Power;
 
         }
@@ -50,9 +50,9 @@ namespace GameKash.Artefacts
             {
                 if (character is Wizard wizard)
                 {
-                    if (wizard.CurrentMana + IntVolume <= wizard.MaxMana)
+                    if (wizard.CurrentMana + _intVolume <= wizard.MaxMana)
                     {
-                        wizard.CurrentMana += IntVolume;
+                        wizard.CurrentMana += _intVolume;
                     }
                     else
                     {
@@ -63,12 +63,12 @@ namespace GameKash.Artefacts
                 }
                 else
                 {
-                    throw new Exception("This artefact can only be applied to a wizard.");
+                    throw new Exception(rm.GetString("OnlyForWizard"));
                 }
             }
             else
             {
-                throw new Exception("This artefact has already been used and can't be renewed.");
+                throw new Exception(rm.GetString("IsNotRenewable"));
             }
         }
 
@@ -76,9 +76,9 @@ namespace GameKash.Artefacts
         {
             if (_power > 0)
             {
-                if (wizard.CurrentMana + IntVolume <= wizard.MaxMana)
+                if (wizard.CurrentMana + _intVolume <= wizard.MaxMana)
                 {
-                    wizard.CurrentMana += IntVolume;
+                    wizard.CurrentMana += _intVolume;
                 }
                 else
                 {
@@ -89,7 +89,7 @@ namespace GameKash.Artefacts
             }
             else
             {
-                throw new Exception("This artefact has already been used and can't be renewed.");
+                throw new Exception(rm.GetString("IsNotRenewable"));
             }
         }
     }

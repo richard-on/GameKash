@@ -1,48 +1,52 @@
 ﻿using System;
+using System.Reflection;
+using System.Resources;
 
 namespace GameKash.Spells
 {
     public class Unrestrict : Spell
     {
-        // // Essentially the same thing as Revive.cs
+        // Essentially the same thing as Revive.cs
         
-        private const double minMana = 85;
+        ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
         
-        public Unrestrict(bool isVerbal, bool isMotional) : base(minMana, isVerbal, isMotional) { }
+        private const double MinMana = 85;
+        
+        public Unrestrict(bool isVerbal, bool isMotional) : base(MinMana, isVerbal, isMotional) { }
         
         public override void MagicCast(Wizard wizard, Character character)
         {
-            if (character.Condition == Conditions.Paralyzed && wizard.CurrentMana >= minMana)
+            if (character.Condition == Conditions.Paralyzed && wizard.CurrentMana >= MinMana)
             {
                 character.Status();
                 character.CurrentHealth = 1;
-                wizard.CurrentMana -= minMana;
+                wizard.CurrentMana -= MinMana;
             }
             else if(character.Condition != Conditions.Paralyzed)
             {
-                throw new Exception("Character is not paralyzed!");
+                throw new Exception(rm.GetString("CharacterNotParalysed"));
             }
             else
             {
-                throw new Exception("Not enough mana!");
+                throw new Exception(rm.GetString("LowMana"));
             }
         }
 
         public override void MagicCast(Wizard wizard)
         {
-            if (wizard.Condition == Conditions.Paralyzed && wizard.CurrentMana >= minMana)
+            if (wizard.Condition == Conditions.Paralyzed && wizard.CurrentMana >= MinMana)
             {
                 wizard.Status();
                 wizard.CurrentHealth = 1;
-                wizard.CurrentMana -= minMana;
+                wizard.CurrentMana -= MinMana;
             }
             else if(wizard.Condition != Conditions.Paralyzed)
             {
-                throw new Exception("Wizard is not paralyzed!");
+                throw new Exception(rm.GetString("WizardNotParalysed"));
             }
             else
             {
-                throw new Exception("Not enough mana!");
+                throw new Exception(rm.GetString("LowMana"));
             }
         }
     }

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
+using System.Resources;
 
 namespace GameKash
 {
@@ -11,68 +9,69 @@ namespace GameKash
     public enum Genders { Male, Female }
     public class Character : IComparable
     {
-        private static int Next_ID { get; set; } = 0;
-        public int ID { get; }
+        ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
+        
+        private static int NextId { get; set; }
+        public int Id { get; }
         public string Name { get; }
         public Conditions Condition { get; set; } = Conditions.Normal;
         public bool AbilityToTalk { get; set; } = true;
         public bool AbilityToMove { get; set; } = true;
         public Races Race { get; }
         public Genders Gender { get; }
-        private int age;
+        private int _age;
         public int Age
-
         { 
             get
             { 
-                return age;
+                return _age;
             } 
             set
             {
-                if (value < age || value < 0)
-                    throw new Exception("Invalid Age value");
-                age = value;
+                if (value < _age || value < 0)
+                    throw new Exception(rm.GetString("InvalidAge"));
+                _age = value;
             }
         }
-        private double current_health;
+        private double _currentHealth;
         public double CurrentHealth
         {
             get
             {
-                return current_health;
+                return _currentHealth;
             }
             set
             {
                 if (value > MaxHealth || value < 0)
-                    throw new Exception("Invalid Health value");
-                current_health = value;
+                    throw new Exception(rm.GetString("InvalidHealth"));
+                _currentHealth = value;
             }
         }
         public double MaxHealth { get; }
-        private int experience = 0;
+        private int _experience;
         public int Experience
         {
             get
             {
-                return experience;
+                return _experience;
             }
             set
             {
-                if (value < experience)
-                    throw new Exception("Invalid Age value");
-                experience = value;
+                if (value < _experience)
+                    throw new Exception(rm.GetString("InvalidAge"));
+                _experience = value;
             }
         }
 
         public Character(string name, Races race, Genders gender, int age, double maxHealth, int experience = 0)
         {
-            if (name == null || name.Contains('\0'))
-                throw new Exception("Invalid Name value");
+            if (String.IsNullOrEmpty(name) || name.Contains('\0'))
+                throw new Exception(rm.GetString("InvalidName"));
             if(age < 0)
-                throw new Exception("Invalid Age value");
+                throw new Exception(rm.GetString("InvalidAge"));
             if(maxHealth <= 0)
-                throw new Exception("Invalid Health value");
-            ID = ++Next_ID;
+                throw new Exception(rm.GetString("InvalidHealth"));
+            Id = ++NextId;
             Name = name;
             Race = race;
             Gender = gender;
@@ -85,7 +84,7 @@ namespace GameKash
         {
             Character character = o as Character;
             if (character == null)
-                throw new Exception("Error");
+                throw new Exception("Error.");
             return this.Experience.CompareTo(character.Experience);
         }
         public void Status()
@@ -100,14 +99,14 @@ namespace GameKash
         public override string ToString()
         {
             return $"Name: {Name}\n" +
-                   $"ID: {ID}\n" +
+                   $"ID: {Id}\n" +
                    $"Condition: {Condition}\n" +
                    $"Race: {Race}\n" +
                    $"Gender: {Gender}\n" + 
                    $"Age: {Age}\n" +
                    $"Max Health: {MaxHealth}\n" +
                    $"Current Health: {CurrentHealth}\n" +
-                   $"Experience: {Experience}";
+                   $"Experience: {Experience}\n";
         }
     }
 }

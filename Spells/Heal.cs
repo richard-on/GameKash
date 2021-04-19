@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection;
+using System.Resources;
 
 namespace GameKash.Spells
 {
@@ -9,42 +11,44 @@ namespace GameKash.Spells
         //          or
         // public Heal(bool isVerbal, bool isMotional) : base(20, isVerbal, isMotional) { }
         // Not sure what is better.
-
-        private const double minMana = 20;
         
-        public Heal(bool isVerbal, bool isMotional) : base(minMana, isVerbal, isMotional) { }
+        ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
+
+        private const double MinMana = 20;
+        
+        public Heal(bool isVerbal, bool isMotional) : base(MinMana, isVerbal, isMotional) { }
         
         public override void MagicCast(Wizard wizard, Character character)
         {
-            if (character.Condition == Conditions.Sick && wizard.CurrentMana >= minMana)
+            if (character.Condition == Conditions.Sick && wizard.CurrentMana >= MinMana)
             {
                 character.Status();
-                wizard.CurrentMana -= minMana;
+                wizard.CurrentMana -= MinMana;
             }
             else if(character.Condition != Conditions.Sick)
             {
-                throw new Exception("Character is not sick!");
+                throw new Exception(rm.GetString("CharacterNotSick"));
             }
             else
             {
-                throw new Exception("Not enough mana!");
+                throw new Exception(rm.GetString("LowMana"));
             }
         }
 
         public override void MagicCast(Wizard wizard)
         {
-            if (wizard.Condition == Conditions.Sick && wizard.CurrentMana >= minMana)
+            if (wizard.Condition == Conditions.Sick && wizard.CurrentMana >= MinMana)
             {
                 wizard.Status();
-                wizard.CurrentMana -= minMana;
+                wizard.CurrentMana -= MinMana;
             }
             else if(wizard.Condition != Conditions.Sick)
             {
-                throw new Exception("Wizard is not sick!");
+                throw new Exception(rm.GetString("WizardNotSick"));
             }
             else
             {
-                throw new Exception("Not enough mana!");
+                throw new Exception(rm.GetString("LowMana"));
             }
         }
     }

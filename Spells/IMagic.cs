@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GameKash {
+﻿namespace GameKash.Spells {
     public interface IMagic
     {
         //This interface includes only MagicCasts' without `double power` parameter as it is unused in most implementations
