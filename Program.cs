@@ -1,8 +1,11 @@
 ﻿using System;
-using System.Globalization;
-using System.Threading;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using GameKash.Artefacts;
 using GameKash.Spells;
+using GameKash.HeroTools;
 
 namespace GameKash
 {
@@ -10,30 +13,56 @@ namespace GameKash
     {
         static void Main()
         {
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("ru-RU");
+            //Wizard Artas = new Wizard("Artas", Races.Human, Genders.Male, 30, 900, 400);
+            Wizard Kenarius = new Wizard("Kenarius", Races.Elf, Genders.Male, 100000, 4000,
+                40);
+            Character Thunder = new Character("Thunder", Races.Orc, Genders.Male, 40, 2700);
+            Kenarius.CurrentHealth = 850;
 
-            try
-            {
-                Wizard wiz1 = new Wizard("Wiz1", Races.Elf, Genders.Male, 100, 10, 100);
-                Wizard wiz2 = new Wizard("Wiz2", Races.Gnome, Genders.Female, 99, 20, 200);
 
-                Character character1 = new Character("Character1", Races.Orc, Genders.Male, 40, 10);
-                Character character2 = new Character("Character2", Races.Human, Genders.Female, 30, 25);
 
-                AddHealth addHealth = new AddHealth(true, true);
-                character1.CurrentHealth = 0;
-                
-                Console.WriteLine(wiz1.CurrentMana);
-                Console.WriteLine(character1.CurrentHealth);
-                addHealth.MagicCast(wiz1, character1);
-                Console.WriteLine(wiz1.CurrentMana);
-                Console.WriteLine(character1.CurrentHealth);
+            Console.WriteLine("Inventory demonstration");
+            // Artifacts can be picked up and dropped.
+            Thunder.GetArtefact(new AquaVitae(AquaVitae.Volumes.Large));
+            Console.WriteLine(Thunder.inventory);
+            Console.WriteLine(Kenarius.inventory);
+            Console.WriteLine("~~~~~~~~~~~~");
+            // Artifacts can be transferred, already zaebis:
+            Thunder.GiveArtefact(Kenarius, new AquaVitae(AquaVitae.Volumes.Large));
+            Console.WriteLine(Thunder.inventory);
+            Console.WriteLine(Kenarius.inventory);
 
-            }
-            catch (Exception e)
-            {
-                Console.Error.WriteLine(e);
-            }
+            Console.WriteLine("Spells demonstration");
+            // Wizards can learn a spell
+            Kenarius.LearnSpell(new AddHealth(20, false, true));
+            Console.WriteLine(Kenarius.inventory);
+            Console.WriteLine("~~~~~~~~~~~~");
+            // And forget it
+            Kenarius.ForgetSpell(new AddHealth(20, false, true));
+            Console.WriteLine(Kenarius.inventory);
+
+
+
+            Console.WriteLine(Kenarius.CurrentHealth);
+            Console.WriteLine("********************");
+            Console.WriteLine(Kenarius.CurrentMana);
+            
+            //AddHealth addHealth = new AddHealth(2, false, false);
+            //addHealth.MagicCast(Kenarius, Thunder, 10);
+            /*AquaVitae aquaVitae = new AquaVitae(AquaVitae.Volumes.Large);
+            AquaVitae aquaVitae2 = new AquaVitae(AquaVitae.Volumes.Large);
+            DeadWater deadWater = new DeadWater(DeadWater.Volumes.Small);
+            deadWater.ArtefactCast(Kenarius);
+            aquaVitae.ArtefactCast(Kenarius, Thunder);
+            aquaVitae2.ArtefactCast(Kenarius, Thunder);*/
+            LightningStaff lightningStaff = new LightningStaff(100);
+            lightningStaff.MagicCast(Kenarius, 90);
+            Console.WriteLine("----------------------------------------------");
+            
+            Console.WriteLine(Kenarius.CurrentHealth);
+            Console.WriteLine("********************");
+            Console.WriteLine(Kenarius.CurrentMana);
+
         }
     }
 }

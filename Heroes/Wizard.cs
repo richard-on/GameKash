@@ -38,5 +38,13 @@ namespace GameKash
                    $"Max Mana: {MaxMana}\n" +
                    $"Current Mana: {CurrentMana}\n";
         }
+
+        public void LearnSpell(Spell spell) {
+            inventory.LearnSpell(spell);
+        }
+        public void ForgetSpell(Spell spell) {
+            inventory.ForgetSpell(spell);
+        }
+
     }
 }

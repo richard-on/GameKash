@@ -1,6 +1,12 @@
 ﻿using System;
 using System.Reflection;
 using System.Resources;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GameKash.Artefacts;
+using GameKash.HeroTools;
 
 namespace GameKash
 {
@@ -11,6 +17,7 @@ namespace GameKash
     {
         ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
         
+        public Inventory inventory;
         private static int NextId { get; set; }
         public int Id { get; }
         public string Name { get; }
@@ -71,6 +78,7 @@ namespace GameKash
                 throw new Exception(rm.GetString("InvalidAge"));
             if(maxHealth <= 0)
                 throw new Exception(rm.GetString("InvalidHealth"));
+            inventory = new Inventory();
             Id = ++NextId;
             Name = name;
             Race = race;
@@ -107,6 +115,15 @@ namespace GameKash
                    $"Max Health: {MaxHealth}\n" +
                    $"Current Health: {CurrentHealth}\n" +
                    $"Experience: {Experience}\n";
+        }
+        
+        public void GetArtefact(Artefact artefact) {
+            this.inventory.GetArtefact(artefact);
+        }
+
+        public void GiveArtefact(Character character, Artefact artefact) {
+            this.inventory.DropArtefact(artefact);
+            character.inventory.GetArtefact(artefact);
         }
     }
 }
