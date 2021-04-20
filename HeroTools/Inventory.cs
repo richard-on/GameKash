@@ -29,7 +29,7 @@ namespace GameKash.HeroTools {
         // For the correct operation of all find methods below.
         // We must overload the artifact comparison operator.
 
-        private int findArtefactSlot(Artefact artefact) {
+        public int findArtefactSlot(Artefact artefact) {
             for(int i = 0; i < this.capacity_artefacts; i++) {
                 if(this.inventoryArtefacts[i] is Artefact) {
                     return i;
@@ -37,7 +37,7 @@ namespace GameKash.HeroTools {
             }
             return -1;
         }
-        private int findSpellSlot(Spell spell) {
+        public int findSpellSlot(Spell spell) {
             for(int i = 0; i < this.capacity_spells; i++) {
                 if(this.inventorySpells[i] is Spell) {
                     return i;

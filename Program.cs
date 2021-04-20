@@ -21,27 +21,20 @@ namespace GameKash
 
 
 
-            Console.WriteLine("Inventory demonstration");
+       
             // Artifacts can be picked up and dropped.
             Thunder.GetArtefact(new AquaVitae(AquaVitae.Volumes.Large));
-            Console.WriteLine(Thunder.inventory);
-            Console.WriteLine(Kenarius.inventory);
-            Console.WriteLine("~~~~~~~~~~~~");
+ 
             // Artifacts can be transferred, already zaebis:
             Thunder.GiveArtefact(Kenarius, new AquaVitae(AquaVitae.Volumes.Large));
-            Console.WriteLine(Thunder.inventory);
-            Console.WriteLine(Kenarius.inventory);
 
-            Console.WriteLine("Spells demonstration");
             // Wizards can learn a spell
-            Kenarius.LearnSpell(new AddHealth(20, false, true));
-            Console.WriteLine(Kenarius.inventory);
-            Console.WriteLine("~~~~~~~~~~~~");
+            Kenarius.LearnSpell(new AddHealth(false, false));
+            // Cast
+            Kenarius.MagicCast(new AddHealth(false, false), Thunder);
             // And forget it
-            Kenarius.ForgetSpell(new AddHealth(20, false, true));
-            Console.WriteLine(Kenarius.inventory);
-
-
+            Kenarius.ForgetSpell(new AddHealth(false, false));
+            
 
             Console.WriteLine(Kenarius.CurrentHealth);
             Console.WriteLine("********************");
