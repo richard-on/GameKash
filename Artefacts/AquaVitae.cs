@@ -83,5 +83,6 @@ namespace GameKash.Artefacts
                 throw new Exception(rm.GetString("IsNotRenewable"));
             }
         }
+
     }
 }

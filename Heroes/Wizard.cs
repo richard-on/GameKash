@@ -41,14 +41,14 @@ namespace GameKash
         }
 
         public void LearnSpell(Spell spell) {
-            inventory.LearnSpell(spell);
+            Inventory.LearnSpell(spell);
         }
         public void ForgetSpell(Spell spell) {
-            inventory.ForgetSpell(spell);
+            Inventory.ForgetSpell(spell);
         }
 
         public void MagicCast(Spell spell, Character character) {
-            int ind = inventory.findSpellSlot(spell);
+            int ind = Inventory.findSpellSlot(spell);
             if(ind != -1) {
                 Console.WriteLine("Character {0} cast a spell {1} on {2}", this.Name, spell.GetType().Name, character.Name);
                 spell.MagicCast(this, character);
@@ -58,7 +58,7 @@ namespace GameKash
             }
         }
         public void MagicCast(Spell spell) {
-            int ind = inventory.findSpellSlot(spell);
+            int ind = Inventory.findSpellSlot(spell);
             if (ind != -1) {
                 Console.WriteLine("Character {0} cast a spell {1} on {2}", this.Name, spell.GetType().Name, this.Name);
                 spell.MagicCast(this);
@@ -69,12 +69,12 @@ namespace GameKash
         }
 
         public void UseArtifact(Artefact artefact, Character character) {
-            int ind = inventory.findArtefactSlot(artefact);
+            int ind = Inventory.findArtefactSlot(artefact);
             if(ind != -1) {
                 Console.WriteLine("Character {0} cast a spell {1} on {2}", this.Name, artefact.GetType().Name, character.Name);
                 artefact.MagicCast(this, character);
                 if(!artefact._isRenewable) {
-                    inventory.DropArtefact(artefact);
+                    Inventory.DropArtefact(artefact);
                 }
             }
             else {
@@ -82,12 +82,12 @@ namespace GameKash
             }
         }
         public void UseArtifact(Artefact artefact) {
-            int ind = inventory.findArtefactSlot(artefact);
+            int ind = Inventory.findArtefactSlot(artefact);
             if(ind != -1) {
                 Console.WriteLine("Character {0} cast a spell {1} on {2}", this.Name, artefact.GetType().Name, this.Name);
                 artefact.MagicCast(this);
                 if(!artefact._isRenewable) {
-                    inventory.DropArtefact(artefact);
+                    Inventory.DropArtefact(artefact);
                 }
             }
             else {

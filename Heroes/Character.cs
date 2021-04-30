@@ -17,7 +17,7 @@ namespace GameKash
     {
         ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
         
-        public Inventory inventory;
+        public Inventory Inventory;
         private static int NextId { get; set; }
         public int Id { get; }
         public string Name { get; }
@@ -49,9 +49,14 @@ namespace GameKash
             }
             set
             {
-                if (value > MaxHealth || value < 0)
+                if(value > MaxHealth)
                     throw new Exception(rm.GetString("InvalidHealth"));
-                _currentHealth = value;
+                else if(value < 0)
+                    _currentHealth = 0;
+                else
+                    _currentHealth = value;
+                this.Status();
+                Console.WriteLine($"--[Здоровье {this.Name}: {_currentHealth}]--");
             }
         }
         public double MaxHealth { get; }
@@ -78,7 +83,7 @@ namespace GameKash
                 throw new Exception(rm.GetString("InvalidAge"));
             if(maxHealth <= 0)
                 throw new Exception(rm.GetString("InvalidHealth"));
-            inventory = new Inventory();
+            Inventory = new Inventory();
             Id = ++NextId;
             Name = name;
             Race = race;
@@ -118,12 +123,13 @@ namespace GameKash
         }
         
         public void GetArtefact(Artefact artefact) {
-            this.inventory.GetArtefact(artefact);
+            this.Inventory.GetArtefact(artefact);
         }
 
         public void GiveArtefact(Character character, Artefact artefact) {
-            this.inventory.DropArtefact(artefact);
-            character.inventory.GetArtefact(artefact);
+            this.Inventory.DropArtefact(artefact);
+            character.Inventory.GetArtefact(artefact);
+            Console.WriteLine($"Персонаж {this.Name} передал артефакт {artefact.GetType().Name} персонажу {character.Name}");
         }
     }
 }

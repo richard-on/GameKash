@@ -41,7 +41,7 @@ namespace GameKash.Artefacts
         {
             if (IsValidInput(power))
             {
-                if (character.CurrentHealth >= power)
+                if (character.CurrentHealth > power)
                 {
                     character.CurrentHealth -= power;
                     _power -= power;
@@ -49,6 +49,7 @@ namespace GameKash.Artefacts
                 else
                 {
                     character.CurrentHealth = 0;
+                    character.Status();
                     _power = power - character.CurrentHealth;
                 }
             }
@@ -64,7 +65,7 @@ namespace GameKash.Artefacts
                 {
                     if (answer.ToUpper() == "Y")
                     {
-                        if (wizard.CurrentHealth >= power)
+                        if (wizard.CurrentHealth > power)
                         {
                             wizard.CurrentHealth -= power;
                             _power -= power;
@@ -72,6 +73,7 @@ namespace GameKash.Artefacts
                         else
                         {
                             wizard.CurrentHealth = 0;
+                            wizard.Status();
                             _power = power - wizard.CurrentHealth;
                         }
                     }
@@ -96,7 +98,7 @@ namespace GameKash.Artefacts
         {
             if (_power > 0)
             {
-                if (character.CurrentHealth >= _power)
+                if (character.CurrentHealth > _power)
                 {
                     character.CurrentHealth -= _power;
                     _power = 0;
@@ -105,6 +107,7 @@ namespace GameKash.Artefacts
                 {
                     _power -= character.CurrentHealth;
                     character.CurrentHealth = 0;
+                    character.Status();
                 }
             }
             else
@@ -123,7 +126,7 @@ namespace GameKash.Artefacts
                 {
                     if (answer.ToUpper() == "Y")
                     {
-                        if (wizard.CurrentHealth >= _power)
+                        if (wizard.CurrentHealth > _power)
                         {
                             wizard.CurrentHealth -= _power;
                             _power = 0;
@@ -132,6 +135,7 @@ namespace GameKash.Artefacts
                         {
                             _power -= wizard.CurrentHealth;
                             wizard.CurrentHealth = 0;
+                            wizard.Status();
                         }
                     }
                     else if(answer.ToUpper() == "N")
