@@ -72,6 +72,7 @@ namespace GameKash
                 if (value < _experience)
                     throw new Exception(rm.GetString("InvalidAge"));
                 _experience = value;
+                Console.WriteLine($"--[Опыт персонажа {this.Name} увеличен, текущий: {_experience}]--");
             }
         }
 
@@ -122,14 +123,24 @@ namespace GameKash
                    $"Experience: {Experience}\n";
         }
         
-        public void GetArtefact(Artefact artefact) {
+        public void GetArtefact(Artefact artefact, bool silence = true) {
             this.Inventory.GetArtefact(artefact);
+            if(!silence) {
+                Console.WriteLine($"--[Персонаж {this.Name} получил артефакт {artefact}]--");
+            }
+        }
+
+        public void DropArtefact(Artefact artefact, bool silence = true) {
+            this.Inventory.DropArtefact(artefact);
+            if(!silence) {
+                Console.WriteLine($"--[Персонаж {this.Name} выбросил артефакт {artefact}]--");
+            }
         }
 
         public void GiveArtefact(Character character, Artefact artefact) {
             this.Inventory.DropArtefact(artefact);
             character.Inventory.GetArtefact(artefact);
-            Console.WriteLine($"Персонаж {this.Name} передал артефакт {artefact.GetType().Name} персонажу {character.Name}");
+            Console.WriteLine($"--[Персонаж {this.Name} передал артефакт {artefact.GetType().Name} персонажу {character.Name}]--");
         }
     }
 }

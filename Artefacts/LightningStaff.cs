@@ -10,7 +10,9 @@ namespace GameKash.Artefacts
         private static ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
 
         private const bool IsRenewable = true;
-        private static double _power;
+        private double _power;
+
+        public double Power { get { return _power; } }
 
         public LightningStaff(double power) : base(power, IsRenewable)
         {
@@ -151,6 +153,17 @@ namespace GameKash.Artefacts
                     
                 } while (!(answer.ToUpper() == "Y" || answer.ToUpper() == "N"));
             }
+        }
+
+        public override string ToString() {
+            return $"{this.GetType().Name} {this.Power}";
+        }
+
+        public override bool Equals(Object obj) {
+            if((obj as LightningStaff).ToString().Equals(this.ToString()))
+                return true;
+            else
+                return false;
         }
     }
 }

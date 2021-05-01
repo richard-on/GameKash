@@ -12,7 +12,41 @@ namespace GameKash
     {
         private static ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
         
+
+        static void NewChapter(int chapter, Character MainPerson, string incorrect_input_message) {
+            Console.WriteLine();
+            Console.WriteLine($"+++[Глава {chapter - 1} пройдена]+++");
+            MainPerson.Experience = 15;
+            Console.WriteLine("+++[Нажмите любую клавишу для перехода]+++");
+            Console.ReadKey();
+            Console.Clear();
+            Console.WriteLine($"+++[Ваши характеристики]+++");
+            Console.WriteLine(MainPerson);
+            Console.WriteLine("+++[Ваш инвентарь]+++");
+            Console.WriteLine(MainPerson.Inventory);
+            
+            Console.WriteLine("+++[Хотите ли вы применить артефакты/заклинания]+++");
+            List<string> choses = MainPerson.Inventory.GetListOfInventory();
+            choses.Add("No");
+            string chose = ChoseSimulation(choses, incorrect_input_message);
+            if (chose == "No") {
+                return;
+            }
+            else {
+
+            }
+        }
         static string ChoseSimulation(List<string> choses, string incorrect_input_message) {
+            string outs = "--[";
+            for (int i = 0; i < choses.Count(); i++) {
+                if(i != choses.Count() - 1)
+                    outs += choses[i] + "|";
+                else
+                    outs += choses[i];
+            }
+            outs += "]--";
+
+            Console.WriteLine(outs);
             string chose = Console.ReadLine();
             while(!choses.Contains(chose)) {
                 Console.WriteLine(rm.GetString("InvalidUserCmd"));
@@ -24,13 +58,13 @@ namespace GameKash
         {
             Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("ru-RU");
 
+            
             #region creating_main_character
             Console.WriteLine("Яркий солнечный свет, проникающий сквозь веки, помог мне прийти в себя.");
             Console.WriteLine("Открыв глаза, я осмотрелся. Итак, я нахожусь на небольшой лесной полянке.");
 
             Console.WriteLine("Потом осмотрел своё тело. --[А кто я?]--");
-            Console.WriteLine("--[Human|Gnome|Elf|Orc|Goblin]--");
-            string chose = ChoseSimulation(new List<string> { "Human", "Gnome", "Elf", "Orc", "Goblin" }, rm.GetString("InvalidUserCmd"));
+            string chose = ChoseSimulation(new List<string> { "Human", "Gnome", "Elf", "Orc", "Goblin" }, incorrect_input_message);
             Races race = Races.Human;
             switch(chose) {
                 case "Human":
@@ -51,13 +85,11 @@ namespace GameKash
             }
 
             Console.WriteLine("--[А какого я пола?]--");
-            Console.WriteLine("--[Male|Female]--");
-            chose = ChoseSimulation(new List<string> { "Male", "Female" }, rm.GetString("InvalidUserCmd"));
+            chose = ChoseSimulation(new List<string> { "Male", "Female" }, incorrect_input_message);
             Genders gender = chose == "Male" ? Genders.Male : Genders.Female;
 
             Console.WriteLine("--[А я умею колдовать?]--");
-            Console.WriteLine("--[Yes|No]--");
-            chose = ChoseSimulation(new List<string> { "Yes", "No" }, rm.GetString("InvalidUserCmd"));
+            chose = ChoseSimulation(new List<string> { "Yes", "No" }, incorrect_input_message);
             bool isWizard = chose == "Yes" ? true : false;
 
             Console.WriteLine("--[А как меня зовут?]--");
@@ -77,11 +109,9 @@ namespace GameKash
             Console.WriteLine("Вроде все мои знания оказались при мне. Похоже всё нормально.");
             Console.WriteLine("Размышляя о весьма важных для меня вещах, я заметил небольшую бутылку у моих ног.");
             Console.WriteLine("--[Подобрать бутылку]--");
-            Console.WriteLine("--[Yes|No]--");
-            chose = ChoseSimulation(new List<string> { "Yes", "No" }, rm.GetString("InvalidUserCmd"));
+            chose = ChoseSimulation(new List<string> { "Yes", "No" }, incorrect_input_message);
             if (chose == "Yes") {
-                Console.WriteLine("--[Вы подобрали бутылку с целебной водой]--");
-                MainPerson.Inventory.GetArtefact(new AquaVitae(AquaVitae.Volumes.Normal));
+                MainPerson.GetArtefact(new AquaVitae(AquaVitae.Volumes.Normal), false);
             }
             #endregion
 
@@ -91,10 +121,8 @@ namespace GameKash
             Console.WriteLine("Всадник подскакал ко мне и остановил коня.");
             Character Rider = new Character("Rider", Races.Human, Genders.Male, 25, 100.0);
             Rider.Inventory.GetArtefact(new LightningStaff(200));
-            Console.WriteLine("-Всадник: Кто такой, и куда направляешься?");
-            
-            Console.WriteLine($"--[Нагрубить|Я {name}]--");
-            chose = ChoseSimulation(new List<string> { "Нагрубить", $"Я {name}" }, rm.GetString("InvalidUserCmd"));
+            Console.WriteLine("-Всадник: Кто такой, и куда направляешься?");    
+            chose = ChoseSimulation(new List<string> { "Нагрубить", $"Я {name}" }, incorrect_input_message);
             if (chose == "Нагрубить") {
                 Console.WriteLine($"-{name}: Чё тебе надо, думаешь крутой на коне?");
                 Console.WriteLine("--[Всадник атаковал вас]--");
@@ -102,8 +130,7 @@ namespace GameKash
 
                 while(MainPerson.Condition != Conditions.Dead && Rider.Condition != Conditions.Dead) {
                     Console.WriteLine("--[Что делать?]--");
-                    Console.WriteLine("--[Атаковать|Бежать]--");
-                    chose = ChoseSimulation(new List<string> { "Атаковать", "Бежать" }, rm.GetString("InvalidUserCmd"));
+                    chose = ChoseSimulation(new List<string> { "Атаковать", "Бежать" }, incorrect_input_message);
                     if(chose == "Атаковать") {
                         Rider.CurrentHealth -= 25;
                         Console.WriteLine("--[Всадник атаковал вас]--");
@@ -117,8 +144,8 @@ namespace GameKash
                 }
 
                 if (Rider.Condition == Conditions.Dead) {
-                    Console.WriteLine("--[Вы убили всадника и забрали у него артефакт 'Ядовитая Слюна']--");
-                    MainPerson.GetArtefact(new PoisonousSaliva(100));
+                    Console.WriteLine("--[Вы убили всадника и забрали у него артефакт]--");
+                    MainPerson.GetArtefact(new PoisonousSaliva(100), false);
                 }
                 else if (MainPerson.Condition == Conditions.Dead) {
                     Console.WriteLine("--[Вы умерли, игра окончена]--");
@@ -134,13 +161,11 @@ namespace GameKash
                 Console.WriteLine("~В этот момент я почувствовал общий настрой этого человека - смесь подозрительности, " +
                     "заинтересованности и досады на возможную задержку, связанною с тем, что придется разбираться со мной." +
                     " Но, самое главное, враждебность от него не исходила.~");
-
-                Console.WriteLine("--[Я сам не знаю|Я путешественник]--");
-                chose = ChoseSimulation(new List<string> { "Я сам не знаю", "Я путешественник" }, rm.GetString("InvalidUserCmd"));
+   
+                chose = ChoseSimulation(new List<string> { "Я сам не знаю", "Я путешественник" }, incorrect_input_message);
                 if (chose == "Я путешественник") {
                     Console.WriteLine("-Всадник: Интересно, и откуда ты?");
-                    Console.WriteLine("--[Из Ендерма|Из Изенгарда]--");
-                    chose = ChoseSimulation(new List<string> { "Из Ендерма", "Из Изенгарда" }, rm.GetString("InvalidUserCmd"));
+                    chose = ChoseSimulation(new List<string> { "Из Ендерма", "Из Изенгарда" }, incorrect_input_message);
                     if (chose == "Из Ендерма") {
                         Console.WriteLine("-Всадник: Моя семья родом оттуда, землякам нужно помогать. Держи.");
                         Rider.GiveArtefact(MainPerson, new LightningStaff(200));
@@ -157,8 +182,13 @@ namespace GameKash
                     Environment.Exit(0);
                 }
             }
+
+
+
             #endregion
-            
+
+            NewChapter(2, MainPerson, incorrect_input_message);
+
         }
     }
 }

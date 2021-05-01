@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Resources;
+using System.Collections.Generic;
 using GameKash.Artefacts;
 using GameKash.Spells;
 
@@ -34,9 +35,13 @@ namespace GameKash.HeroTools {
         // For the correct operation of all find methods below.
         // We must overload the artifact comparison operator.
 
+        // Shit happening, when we finding artefact.
+        // I don't know why, but artefact in our inventory changing
+        // every time, when we pass another argument
         public int findArtefactSlot(Artefact artefact) {
             for(int i = 0; i < this.capacity_artefacts; i++) {
-                if(this.inventoryArtefacts[i] is Artefact) {
+                if(inventoryArtefacts[i].Equals(artefact)) {
+                 
                     return i;
                 }
             }
@@ -44,7 +49,7 @@ namespace GameKash.HeroTools {
         }
         public int findSpellSlot(Spell spell) {
             for(int i = 0; i < this.capacity_spells; i++) {
-                if(this.inventorySpells[i] is Spell) {
+                if(this.inventorySpells[i].Equals(spell)) {
                     return i;
                 }
             }
@@ -69,6 +74,18 @@ namespace GameKash.HeroTools {
                 emptyArtefactsPlaces[emptySlot] = false;
             }
         }
+        public void DropArtefact(Artefact artefact) {
+            int slot = findArtefactSlot(artefact);
+            if(slot != -1) {
+                emptyArtefactsPlaces[slot] = true;
+                inventoryArtefacts[slot] = null;
+            }
+
+            else {
+                throw new Exception("You don't have this artefact.");
+            }
+        }
+
 
         public void LearnSpell(Spell spell) {
             int emptySlot = findEmptySlot(emptyArtefactsPlaces);
@@ -92,30 +109,32 @@ namespace GameKash.HeroTools {
             }         
         }
 
-        public void DropArtefact(Artefact artefact) {
-            int slot = findArtefactSlot(artefact);
-            if (slot != -1) { 
-                emptyArtefactsPlaces[slot] = true;
-                inventoryArtefacts[slot] = null;  
+        public List <string> GetListOfInventory() {
+            List<string> inventory = new List<string>();
+            for(int i = 0; i < capacity_artefacts; i++) {
+                if(this.inventoryArtefacts[i] != null)
+                    inventory.Add(inventoryArtefacts[i].ToString());
             }
-            
-            else {
-                throw new Exception(rm.GetString("NoArtefact"));
+            for(int i = 0; i < capacity_spells; i++) {
+                if(this.inventorySpells[i] != null)
+                    inventory.Add(inventorySpells[i].ToString());
             }
+
+            return inventory;
         }
 
         public override string ToString() {
             string artefacts = "";
             for (int i = 0; i < capacity_artefacts; i++) {
                 if(this.inventoryArtefacts[i] != null)
-                    artefacts += this.inventoryArtefacts[i].ToString() + " ";
+                    artefacts += $"<{this.inventoryArtefacts[i].ToString()}> ";
             }
             string spells = "";
             for(int i = 0; i < capacity_spells; i++) {
                 if(this.inventorySpells[i] != null)
-                    spells += this.inventorySpells[i].ToString() + " ";
+                    spells += $"[{this.inventorySpells[i].ToString()}] ";
             }
-            return $"Artefacts: {artefacts} \n Spells: {spells}";
+            return $"--[Artefacts: {artefacts}]--\n--[Spells: {spells}]--\n";
         }
 
     }

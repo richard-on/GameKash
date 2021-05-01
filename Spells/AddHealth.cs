@@ -86,5 +86,16 @@ namespace GameKash.Spells {
                 }
             }
         }
+
+        public override string ToString() {
+            return $"{this.GetType().Name} {this._isMotional} {this._isVerbal}";
+        }
+
+        public override bool Equals(Object obj) {
+            if((obj as AddHealth).ToString().Equals(this.ToString()))
+                return true;
+            else
+                return false;
+        }
     }
 }

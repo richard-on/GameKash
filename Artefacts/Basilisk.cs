@@ -10,7 +10,7 @@ namespace GameKash.Artefacts
         
         private const bool IsRenewable = false;
         private const int Power = 1;
-        private static int _power;
+        private int _power;
         
         public Basilisk() : base(Power, IsRenewable)
         {
@@ -49,6 +49,17 @@ namespace GameKash.Artefacts
             {
                 Console.Error.WriteLine(rm.GetString("IsNotRenewable"));
             }
+        }
+
+        public override string ToString() {
+            return $"{this.GetType().Name}";
+        }
+
+        public override bool Equals(Object obj) {
+            if((obj as Basilisk).ToString().Equals(this.ToString()))
+                return true;
+            else
+                return false;
         }
     }
 }

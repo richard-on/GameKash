@@ -18,11 +18,19 @@ namespace GameKash.Artefacts
         }
         
         private const bool IsRenewable = false;
-        private const int Power = 1;
-        private static int _power;
-        private static int _intVolume;
+        private static int _Power = 1;
+        private int _power;
+        private int _intVolume;
 
-        public AquaVitae(Volumes volume) : base(Power, IsRenewable)
+        public int Volume { get { return _intVolume; } }
+        public int Power { get { return _power; } }
+
+        public AquaVitae(AquaVitae other) : base(_Power, IsRenewable) {
+            _intVolume = other.Volume;
+            _power = other.Power;
+        }
+
+        public AquaVitae(Volumes volume) : base(_Power, IsRenewable)
         {
             switch (volume)
             {
@@ -40,7 +48,7 @@ namespace GameKash.Artefacts
                     break;
             }
             
-            _power = Power;
+            _power = _Power;
         }
         
         public override void MagicCast(Wizard wizard, Character character)
@@ -83,5 +91,15 @@ namespace GameKash.Artefacts
             }
         }
 
+        public override string ToString() {
+            return $"{this.GetType().Name} {this.Volume}";
+        }
+
+        public override bool Equals(Object obj) {
+            if((obj as Artefact).ToString().Equals(this.ToString()))
+                return true;
+            else
+                return false;
+        }
     }
 }
