@@ -17,8 +17,8 @@ namespace GameKash.Artefacts
         
         private const bool IsRenewable = false;
         private const int Power = 1;
-        private static int _power;
-        private static int _intVolume;
+        private int _power;
+        private int _intVolume;
 
         public int Volume { get { return _intVolume; } }
 
@@ -100,12 +100,10 @@ namespace GameKash.Artefacts
         }
 
         public override bool Equals(Object obj) {
-            if(obj.ToString() == this.ToString())
+            if(obj.ToString().Equals(this.ToString()))
                 return true;
             else
                 return false;
         }
-
-   
     }
 }

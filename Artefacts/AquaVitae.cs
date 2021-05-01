@@ -18,13 +18,19 @@ namespace GameKash.Artefacts
         }
         
         private const bool IsRenewable = false;
-        private static int Power = 1;
-        private static int _power;
-        private static int _intVolume;
+        private static int _Power = 1;
+        private int _power;
+        private int _intVolume;
 
         public int Volume { get { return _intVolume; } }
+        public int Power { get { return _power; } }
 
-        public AquaVitae(Volumes volume) : base(Power, IsRenewable)
+        public AquaVitae(AquaVitae other) : base(_Power, IsRenewable) {
+            _intVolume = other.Volume;
+            _power = other.Power;
+        }
+
+        public AquaVitae(Volumes volume) : base(_Power, IsRenewable)
         {
             switch (volume)
             {
@@ -42,7 +48,7 @@ namespace GameKash.Artefacts
                     break;
             }
             
-            _power = Power;
+            _power = _Power;
         }
         
         //TODO: Implement better logic to check if the item has been used.
@@ -91,13 +97,10 @@ namespace GameKash.Artefacts
         }
 
         public override bool Equals(Object obj) {
-            if(obj.ToString() == this.ToString())
+            if((obj as Artefact).ToString().Equals(this.ToString()))
                 return true;
             else
                 return false;
         }
-
-   
-
     }
 }

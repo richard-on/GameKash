@@ -49,5 +49,16 @@ namespace GameKash.Spells
                 throw new Exception(rm.GetString("CharacterNotDead"));
             }
         }
+
+        public override string ToString() {
+            return $"{this.GetType().Name}";
+        }
+
+        public override bool Equals(Object obj) {
+            if((obj as Revive).ToString().Equals(this.ToString()))
+                return true;
+            else
+                return false;
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace GameKash.Artefacts
         ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
 
         private const bool IsRenewable = true;
-        private static double _power;
+        private double _power;
 
         public double Power { get { return _power; } }
 
@@ -160,11 +160,10 @@ namespace GameKash.Artefacts
         }
 
         public override bool Equals(Object obj) {
-            if(obj.ToString() == this.ToString())
+            if((obj as LightningStaff).ToString().Equals(this.ToString()))
                 return true;
             else
                 return false;
         }
-
     }
 }

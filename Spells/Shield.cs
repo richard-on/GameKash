@@ -1,4 +1,6 @@
-﻿namespace GameKash.Spells
+﻿using System;
+
+namespace GameKash.Spells
 {
     public class Shield : Spell, IPower
     {
@@ -29,6 +31,17 @@
         public void MagicCast(Wizard wizard, double power)
         {
             throw new System.NotImplementedException();
+        }
+
+        public override string ToString() {
+            return $"{this.GetType().Name}";
+        }
+
+        public override bool Equals(Object obj) {
+            if((obj as Shield).ToString().Equals(this.ToString()))
+                return true;
+            else
+                return false;
         }
     }
 }
