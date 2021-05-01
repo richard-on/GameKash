@@ -64,7 +64,7 @@ namespace GameKash
             Console.WriteLine("Открыв глаза, я осмотрелся. Итак, я нахожусь на небольшой лесной полянке.");
 
             Console.WriteLine("Потом осмотрел своё тело. --[А кто я?]--");
-            string chose = ChoseSimulation(new List<string> { "Human", "Gnome", "Elf", "Orc", "Goblin" }, incorrect_input_message);
+            string chose = ChoseSimulation(new List<string> { "Human", "Gnome", "Elf", "Orc", "Goblin" }, rm.GetString("InvalidUserCmd"));
             Races race = Races.Human;
             switch(chose) {
                 case "Human":
@@ -85,11 +85,11 @@ namespace GameKash
             }
 
             Console.WriteLine("--[А какого я пола?]--");
-            chose = ChoseSimulation(new List<string> { "Male", "Female" }, incorrect_input_message);
+            chose = ChoseSimulation(new List<string> { "Male", "Female" }, rm.GetString("InvalidUserCmd"));
             Genders gender = chose == "Male" ? Genders.Male : Genders.Female;
 
             Console.WriteLine("--[А я умею колдовать?]--");
-            chose = ChoseSimulation(new List<string> { "Yes", "No" }, incorrect_input_message);
+            chose = ChoseSimulation(new List<string> { "Yes", "No" }, rm.GetString("InvalidUserCmd"));
             bool isWizard = chose == "Yes" ? true : false;
 
             Console.WriteLine("--[А как меня зовут?]--");
@@ -109,7 +109,7 @@ namespace GameKash
             Console.WriteLine("Вроде все мои знания оказались при мне. Похоже всё нормально.");
             Console.WriteLine("Размышляя о весьма важных для меня вещах, я заметил небольшую бутылку у моих ног.");
             Console.WriteLine("--[Подобрать бутылку]--");
-            chose = ChoseSimulation(new List<string> { "Yes", "No" }, incorrect_input_message);
+            chose = ChoseSimulation(new List<string> { "Yes", "No" }, rm.GetString("InvalidUserCmd"));
             if (chose == "Yes") {
                 MainPerson.GetArtefact(new AquaVitae(AquaVitae.Volumes.Normal), false);
             }
@@ -122,7 +122,7 @@ namespace GameKash
             Character Rider = new Character("Rider", Races.Human, Genders.Male, 25, 100.0);
             Rider.Inventory.GetArtefact(new LightningStaff(200));
             Console.WriteLine("-Всадник: Кто такой, и куда направляешься?");    
-            chose = ChoseSimulation(new List<string> { "Нагрубить", $"Я {name}" }, incorrect_input_message);
+            chose = ChoseSimulation(new List<string> { "Нагрубить", $"Я {name}" }, rm.GetString("InvalidUserCmd"));
             if (chose == "Нагрубить") {
                 Console.WriteLine($"-{name}: Чё тебе надо, думаешь крутой на коне?");
                 Console.WriteLine("--[Всадник атаковал вас]--");
@@ -130,7 +130,7 @@ namespace GameKash
 
                 while(MainPerson.Condition != Conditions.Dead && Rider.Condition != Conditions.Dead) {
                     Console.WriteLine("--[Что делать?]--");
-                    chose = ChoseSimulation(new List<string> { "Атаковать", "Бежать" }, incorrect_input_message);
+                    chose = ChoseSimulation(new List<string> { "Атаковать", "Бежать" }, rm.GetString("InvalidUserCmd"));
                     if(chose == "Атаковать") {
                         Rider.CurrentHealth -= 25;
                         Console.WriteLine("--[Всадник атаковал вас]--");
@@ -162,10 +162,10 @@ namespace GameKash
                     "заинтересованности и досады на возможную задержку, связанною с тем, что придется разбираться со мной." +
                     " Но, самое главное, враждебность от него не исходила.~");
    
-                chose = ChoseSimulation(new List<string> { "Я сам не знаю", "Я путешественник" }, incorrect_input_message);
+                chose = ChoseSimulation(new List<string> { "Я сам не знаю", "Я путешественник" }, rm.GetString("InvalidUserCmd"));
                 if (chose == "Я путешественник") {
                     Console.WriteLine("-Всадник: Интересно, и откуда ты?");
-                    chose = ChoseSimulation(new List<string> { "Из Ендерма", "Из Изенгарда" }, incorrect_input_message);
+                    chose = ChoseSimulation(new List<string> { "Из Ендерма", "Из Изенгарда" }, rm.GetString("InvalidUserCmd"));
                     if (chose == "Из Ендерма") {
                         Console.WriteLine("-Всадник: Моя семья родом оттуда, землякам нужно помогать. Держи.");
                         Rider.GiveArtefact(MainPerson, new LightningStaff(200));
@@ -187,7 +187,7 @@ namespace GameKash
 
             #endregion
 
-            NewChapter(2, MainPerson, incorrect_input_message);
+            NewChapter(2, MainPerson, rm.GetString("InvalidUserCmd"));
 
         }
     }

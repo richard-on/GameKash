@@ -8,8 +8,8 @@ namespace GameKash.Spells {
         private static ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
         
         private const double MinMana = 0;
-        private static bool _isVerbal;
-        private static bool _isMotional;
+        private bool _isVerbal;
+        private bool _isMotional;
 
         public AddHealth(bool isVerbal, bool isMotional) : base(MinMana, isVerbal, isMotional)
         {
