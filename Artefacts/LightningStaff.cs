@@ -7,7 +7,7 @@ namespace GameKash.Artefacts
 {
     public class LightningStaff : Artefact, IPower
     {
-        ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
+        private static ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
 
         private const bool IsRenewable = true;
         private static double _power;

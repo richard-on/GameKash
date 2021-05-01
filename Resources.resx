@@ -78,4 +78,22 @@
     <data name="WizardNotSick" xml:space="preserve">
         <value>Wizard is not sick.</value>
     </data>
+    <data name="NoSpell" xml:space="preserve">
+        <value>You don't have this spell.</value>
+    </data>
+    <data name="NoArtefact" xml:space="preserve">
+        <value>You don't have this artefact.</value>
+    </data>
+    <data name="SpellsLimit" xml:space="preserve">
+        <value>You can't know any more spells.</value>
+    </data>
+    <data name="ArtefactsLimit" xml:space="preserve">
+        <value>You can't take any more artifacts.</value>
+    </data>
+    <data name="NoTalk" xml:space="preserve">
+        <value>This spell requires ability to talk, but your wizard can't talk.</value>
+    </data>
+    <data name="NoMotion" xml:space="preserve">
+        <value>This spell requires ability to move, but your wizard can't move.</value>
+    </data>
 </root>

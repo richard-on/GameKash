@@ -70,6 +70,15 @@ namespace GameKash {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t take any more artifacts..
+        /// </summary>
+        internal static string ArtefactsLimit {
+            get {
+                return ResourceManager.GetString("ArtefactsLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Character is not dead..
         /// </summary>
         internal static string CharacterNotDead {
@@ -178,6 +187,42 @@ namespace GameKash {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have this artefact..
+        /// </summary>
+        internal static string NoArtefact {
+            get {
+                return ResourceManager.GetString("NoArtefact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This spell requires ability to move, but your wizard can&apos;t move..
+        /// </summary>
+        internal static string NoMotion {
+            get {
+                return ResourceManager.GetString("NoMotion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have this spell..
+        /// </summary>
+        internal static string NoSpell {
+            get {
+                return ResourceManager.GetString("NoSpell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This spell requires ability to talk, but your wizard can&apos;t talk..
+        /// </summary>
+        internal static string NoTalk {
+            get {
+                return ResourceManager.GetString("NoTalk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This artefact can&apos;t be used. This item&apos;s power is 0..
         /// </summary>
         internal static string NullItemPower {
@@ -201,6 +246,15 @@ namespace GameKash {
         internal static string SelfDamageWarning {
             get {
                 return ResourceManager.GetString("SelfDamageWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can&apos;t know any more spells..
+        /// </summary>
+        internal static string SpellsLimit {
+            get {
+                return ResourceManager.GetString("SpellsLimit", resourceCulture);
             }
         }
         

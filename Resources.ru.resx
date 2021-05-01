@@ -71,4 +71,22 @@
     <data name="OnlyForWizard" xml:space="preserve">
         <value>Этот артефакт может быть применён только к магу.</value>
     </data>
+    <data name="NoSpell" xml:space="preserve">
+        <value> Вы не владеете этим заклинанием</value>
+    </data>
+    <data name="NoArtefact" xml:space="preserve">
+        <value>У вас нет этого артефакта.</value>
+    </data>
+    <data name="SpellsLimit" xml:space="preserve">
+        <value>Ваш персонаж овладел максимальным количеством заклинаний.</value>
+    </data>
+    <data name="ArtefactsLimit" xml:space="preserve">
+        <value>Ваш персонаж овладел максимальным количеством заклинаний.</value>
+    </data>
+    <data name="NoTalk" xml:space="preserve">
+        <value>Для применения этого заклинания необходимоа возможность говорить, а ваш маг не умеет этого.</value>
+    </data>
+    <data name="NoMotion" xml:space="preserve">
+        <value>Для применения этого заклинания необходимоа возможность двигаться, а ваш маг не может сделать двигаться.</value>
+    </data>
 </root>

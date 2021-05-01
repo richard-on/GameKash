@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Reflection;
+using System.Resources;
 using GameKash.Artefacts;
 using GameKash.Spells;
 
 namespace GameKash.HeroTools {
     public class Inventory {
+        
+        private ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
+        
         private int capacity_artefacts;
         private int capacity_spells;
         private Artefact[] inventoryArtefacts;
@@ -57,7 +62,7 @@ namespace GameKash.HeroTools {
         public void GetArtefact(Artefact artefact) {
             int emptySlot = findEmptySlot(emptyArtefactsPlaces);
             if (emptySlot == -1) {
-                throw new Exception("You can't take any more artifacts.");
+                throw new Exception(rm.GetString("ArtefactsLimit"));
             }
             else {
                 inventoryArtefacts[emptySlot] = artefact;
@@ -68,7 +73,7 @@ namespace GameKash.HeroTools {
         public void LearnSpell(Spell spell) {
             int emptySlot = findEmptySlot(emptyArtefactsPlaces);
             if (emptySlot == -1) {
-                throw new Exception("You can't know any more spells.");
+                throw new Exception(rm.GetString("SpellsLimit"));
             }
             else {
                 inventorySpells[emptySlot] = spell;
@@ -83,7 +88,7 @@ namespace GameKash.HeroTools {
                 inventorySpells[slot] = null;
             }
             else {
-                throw new Exception("You don't have this spell.");
+                throw new Exception(rm.GetString("NoSpell"));
             }         
         }
 
@@ -92,10 +97,10 @@ namespace GameKash.HeroTools {
             if (slot != -1) { 
                 emptyArtefactsPlaces[slot] = true;
                 inventoryArtefacts[slot] = null;  
-             }
+            }
             
             else {
-                throw new Exception("You don't have this artefact.");
+                throw new Exception(rm.GetString("NoArtefact"));
             }
         }
 

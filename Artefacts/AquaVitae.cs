@@ -43,7 +43,6 @@ namespace GameKash.Artefacts
             _power = Power;
         }
         
-        //TODO: Implement better logic to check if the item has been used.
         public override void MagicCast(Wizard wizard, Character character)
         {
             if (_power > 0)

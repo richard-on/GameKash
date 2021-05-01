@@ -18,6 +18,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Remove="SpellAvailableCheck.cs" />
   </ItemGroup>
 
 </Project>

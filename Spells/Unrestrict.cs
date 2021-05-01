@@ -8,45 +8,75 @@ namespace GameKash.Spells
     {
         // Essentially the same thing as Revive.cs
         
-        ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
+        private static ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
         
         private const double MinMana = 85;
-        
-        public Unrestrict(bool isVerbal, bool isMotional) : base(MinMana, isVerbal, isMotional) { }
-        
-        public override void MagicCast(Wizard wizard, Character character)
+        private static bool _isVerbal;
+        private static bool _isMotional;
+
+        public Unrestrict(bool isVerbal, bool isMotional) : base(MinMana, isVerbal, isMotional)
         {
-            if (character.Condition == Conditions.Paralyzed && wizard.CurrentMana >= MinMana)
+            _isVerbal = isVerbal;
+            _isMotional = isMotional;
+        }
+        
+        private bool isSpellAvailable(Wizard wizard)
+        {
+            if (_isVerbal && !wizard.AbilityToTalk)
             {
-                character.Status();
-                character.CurrentHealth = 1;
-                wizard.CurrentMana -= MinMana;
+                Console.Error.WriteLine(rm.GetString("NoTalk"));
             }
-            else if(character.Condition != Conditions.Paralyzed)
+            else if (_isMotional && !wizard.AbilityToMove)
             {
-                throw new Exception(rm.GetString("CharacterNotParalysed"));
+                Console.Error.WriteLine(rm.GetString("NoMotion"));
             }
             else
             {
-                throw new Exception(rm.GetString("LowMana"));
+                return true;
+            }
+
+            return false;
+        }
+        
+        public override void MagicCast(Wizard wizard, Character character)
+        {
+            if (isSpellAvailable(wizard))
+            {
+                if (character.Condition == Conditions.Paralyzed && wizard.CurrentMana >= MinMana)
+                {
+                    character.Status();
+                    character.CurrentHealth = 1;
+                    wizard.CurrentMana -= MinMana;
+                }
+                else if (character.Condition != Conditions.Paralyzed)
+                {
+                    throw new Exception(rm.GetString("CharacterNotParalysed"));
+                }
+                else
+                {
+                    throw new Exception(rm.GetString("LowMana"));
+                }
             }
         }
 
         public override void MagicCast(Wizard wizard)
         {
-            if (wizard.Condition == Conditions.Paralyzed && wizard.CurrentMana >= MinMana)
+            if (isSpellAvailable(wizard))
             {
-                wizard.Status();
-                wizard.CurrentHealth = 1;
-                wizard.CurrentMana -= MinMana;
-            }
-            else if(wizard.Condition != Conditions.Paralyzed)
-            {
-                throw new Exception(rm.GetString("WizardNotParalysed"));
-            }
-            else
-            {
-                throw new Exception(rm.GetString("LowMana"));
+                if (wizard.Condition == Conditions.Paralyzed && wizard.CurrentMana >= MinMana)
+                {
+                    wizard.Status();
+                    wizard.CurrentHealth = 1;
+                    wizard.CurrentMana -= MinMana;
+                }
+                else if (wizard.Condition != Conditions.Paralyzed)
+                {
+                    throw new Exception(rm.GetString("WizardNotParalysed"));
+                }
+                else
+                {
+                    throw new Exception(rm.GetString("LowMana"));
+                }
             }
         }
     }

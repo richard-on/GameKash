@@ -6,7 +6,7 @@ namespace GameKash.Artefacts
 {
     public class Basilisk : Artefact
     {
-        ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
+        private ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
         
         private const bool IsRenewable = false;
         private const int Power = 1;

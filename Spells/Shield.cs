@@ -1,34 +1,75 @@
-﻿namespace GameKash.Spells
+﻿using System;
+using System.Reflection;
+using System.Resources;
+
+namespace GameKash.Spells
 {
     public class Shield : Spell, IPower
     {
-        //The problem is that we need time-tracking for this method. The best idea so far is to track turns.
-        //This, however, requires further discussion. For now, this class is intentionally left empty.
-        //TODO: Decide how to track turns and implement this class.
+        private static ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
+
+        private const double MinMana = 50;
+        private static int _validTurnsNum;
+        private static bool _isVerbal;
+        private static bool _isMotional;
         
-        public Shield(double minMana, bool isVerbal, bool isMotional) : base(minMana, isVerbal, isMotional)
+        public Shield(bool isVerbal, bool isMotional, int turns) : base(50, isVerbal, isMotional)
         {
-            throw new System.NotImplementedException();
+            _isVerbal = isVerbal;
+            _isMotional = isMotional;
+            _validTurnsNum = turns;
         }
+        
+        private bool isSpellAvailable(Wizard wizard)
+        {
+            if (_isVerbal && !wizard.AbilityToTalk)
+            {
+                Console.Error.WriteLine(rm.GetString("NoTalk"));
+            }
+            else if (_isMotional && !wizard.AbilityToMove)
+            {
+                Console.Error.WriteLine(rm.GetString("NoMotion"));
+            }
+            else
+            {
+                return true;
+            }
+
+            return false;
+        }
+        
+        //After trying so many times, still no idea how to track turns and implement shield(
 
         public override void MagicCast(Wizard wizard, Character character)
         {
-            throw new System.NotImplementedException();
+            if (isSpellAvailable(wizard))
+            {
+                throw new System.NotImplementedException();
+            }
         }
 
         public override void MagicCast(Wizard wizard)
         {
-            throw new System.NotImplementedException();
+            if (isSpellAvailable(wizard))
+            {
+                throw new System.NotImplementedException();
+            }
         }
 
         public void MagicCast(Wizard wizard, Character character, double power)
         {
-            throw new System.NotImplementedException();
+            if (isSpellAvailable(wizard))
+            {
+                throw new System.NotImplementedException();
+            }
         }
 
         public void MagicCast(Wizard wizard, double power)
         {
-            throw new System.NotImplementedException();
+            if (isSpellAvailable(wizard))
+            {
+                throw new System.NotImplementedException();
+            }
         }
     }
 }
