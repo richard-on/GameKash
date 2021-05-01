@@ -20,6 +20,8 @@ namespace GameKash.Artefacts
         private static int _power;
         private static int _intVolume;
 
+        public int Volume { get { return _intVolume; } }
+
         public DeadWater(Volumes volume) : base(Power, IsRenewable)
         {
             switch (volume)
@@ -92,5 +94,18 @@ namespace GameKash.Artefacts
                 throw new Exception(rm.GetString("IsNotRenewable"));
             }
         }
+
+        public override string ToString() {
+            return $"{this.GetType().Name} {this.Volume}";
+        }
+
+        public override bool Equals(Object obj) {
+            if(obj.ToString() == this.ToString())
+                return true;
+            else
+                return false;
+        }
+
+   
     }
 }

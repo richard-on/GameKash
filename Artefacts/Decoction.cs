@@ -51,5 +51,18 @@ namespace GameKash.Artefacts
                 Console.Error.WriteLine(rm.GetString("IsNotRenewable"));
             }
         }
+
+        public override string ToString() {
+            return $"{this.GetType().Name}";
+        }
+
+        public override bool Equals(Object obj) {
+            if(obj.ToString() == this.ToString())
+                return true;
+            else
+                return false;
+        }
+
+       
     }
 }

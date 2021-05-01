@@ -12,6 +12,8 @@ namespace GameKash.Artefacts
         private const bool IsRenewable = true;
         private static double _power;
 
+        public double Power { get { return _power; } }
+
         public PoisonousSaliva(double power) : base(power, IsRenewable)
         {
             if (power < 0)
@@ -155,5 +157,17 @@ namespace GameKash.Artefacts
                 } while (!(answer.ToUpper() == "Y" || answer.ToUpper() == "N"));
             }
         }
+
+        public override string ToString() {
+            return $"{this.GetType().Name} {this.Power}";
+        }
+
+        public override bool Equals(Object obj) {
+            if(obj.ToString() == this.ToString())
+                return true;
+            else
+                return false;
+        }
+
     }
 }

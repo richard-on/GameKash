@@ -126,10 +126,14 @@ namespace GameKash
             this.Inventory.GetArtefact(artefact);
         }
 
+        public void DropArtefact(Artefact artefact) {
+            this.Inventory.DropArtefact(artefact);
+        }
+
         public void GiveArtefact(Character character, Artefact artefact) {
             this.Inventory.DropArtefact(artefact);
             character.Inventory.GetArtefact(artefact);
-            Console.WriteLine($"Персонаж {this.Name} передал артефакт {artefact.GetType().Name} персонажу {character.Name}");
+            Console.WriteLine($"--[Персонаж {this.Name} передал артефакт {artefact.GetType().Name} персонажу {character.Name}]--");
         }
     }
 }

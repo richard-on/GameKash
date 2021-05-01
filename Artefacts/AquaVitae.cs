@@ -18,9 +18,11 @@ namespace GameKash.Artefacts
         }
         
         private const bool IsRenewable = false;
-        private const int Power = 1;
+        private static int Power = 1;
         private static int _power;
         private static int _intVolume;
+
+        public int Volume { get { return _intVolume; } }
 
         public AquaVitae(Volumes volume) : base(Power, IsRenewable)
         {
@@ -83,6 +85,19 @@ namespace GameKash.Artefacts
                 throw new Exception(rm.GetString("IsNotRenewable"));
             }
         }
+
+        public override string ToString() {
+            return $"{this.GetType().Name} {this.Volume}";
+        }
+
+        public override bool Equals(Object obj) {
+            if(obj.ToString() == this.ToString())
+                return true;
+            else
+                return false;
+        }
+
+   
 
     }
 }

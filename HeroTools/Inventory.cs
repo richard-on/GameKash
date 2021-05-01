@@ -29,9 +29,13 @@ namespace GameKash.HeroTools {
         // For the correct operation of all find methods below.
         // We must overload the artifact comparison operator.
 
+        // Shit happening, when we finding artefact.
+        // I don't know why, but artefact in our inventory changing
+        // every time, when we pass another argument
         public int findArtefactSlot(Artefact artefact) {
             for(int i = 0; i < this.capacity_artefacts; i++) {
-                if(this.inventoryArtefacts[i] is Artefact) {
+                if(inventoryArtefacts[i].Equals(artefact)) {
+                 
                     return i;
                 }
             }
@@ -39,7 +43,7 @@ namespace GameKash.HeroTools {
         }
         public int findSpellSlot(Spell spell) {
             for(int i = 0; i < this.capacity_spells; i++) {
-                if(this.inventorySpells[i] is Spell) {
+                if(this.inventorySpells[i].Equals(spell)) {
                     return i;
                 }
             }
@@ -57,7 +61,7 @@ namespace GameKash.HeroTools {
         public void GetArtefact(Artefact artefact) {
             int emptySlot = findEmptySlot(emptyArtefactsPlaces);
             if (emptySlot == -1) {
-                throw new Exception("You can't take any more artifacts.");
+                throw new Exception("You can't take any more artefacts.");
             }
             else {
                 inventoryArtefacts[emptySlot] = artefact;
@@ -87,9 +91,9 @@ namespace GameKash.HeroTools {
             }         
         }
 
-        public void DropArtefact(Artefact artefact) {
-            int slot = findArtefactSlot(artefact);
-            if (slot != -1) { 
+        public void DropArtefact(Artefact artefact) { 
+            int slot = findArtefactSlot(artefact);   
+            if (slot != -1) {    
                 emptyArtefactsPlaces[slot] = true;
                 inventoryArtefacts[slot] = null;  
              }
@@ -110,7 +114,7 @@ namespace GameKash.HeroTools {
                 if(this.inventorySpells[i] != null)
                     spells += this.inventorySpells[i].ToString() + " ";
             }
-            return $"Artefacts: {artefacts} \n Spells: {spells}";
+            return $"--[Artefacts: {artefacts}]--\n--[Spells: {spells}]--";
         }
 
     }

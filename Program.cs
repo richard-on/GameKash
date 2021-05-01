@@ -25,6 +25,7 @@ namespace GameKash
         {
             string incorrect_input_message = "Некорректный ввод, введите ещё раз.";
 
+            /*
             #region creating_main_character
             Console.WriteLine("Яркий солнечный свет, проникающий сквозь веки, помог мне прийти в себя.");
             Console.WriteLine("Открыв глаза, я осмотрелся. Итак, я нахожусь на небольшой лесной полянке.");
@@ -73,7 +74,19 @@ namespace GameKash
             }
 
             #endregion
+            */
+            Console.WriteLine("Bugs demonstration");
+            Character MainPerson = new Character("Tester", Races.Elf, Genders.Male, 20, 500);
+            Console.WriteLine(MainPerson.Inventory);
+            MainPerson.GetArtefact(new AquaVitae(AquaVitae.Volumes.Normal));
+            MainPerson.GetArtefact(new AquaVitae(AquaVitae.Volumes.Large));
+            MainPerson.GetArtefact(new AquaVitae(AquaVitae.Volumes.Normal));
+            MainPerson.GetArtefact(new DeadWater(DeadWater.Volumes.Normal));
+            Console.WriteLine(MainPerson.Inventory);
+            MainPerson.DropArtefact(new AquaVitae(AquaVitae.Volumes.Small));
+            Console.WriteLine(MainPerson.Inventory);
             
+            /*
             #region found_aqua_vitae
             Console.WriteLine("Вроде все мои знания оказались при мне. Похоже всё нормально.");
             Console.WriteLine("Размышляя о весьма важных для меня вещах, я заметил небольшую бутылку у моих ног.");
@@ -160,6 +173,7 @@ namespace GameKash
             }
             #endregion
             
+            */
         }
     }
 }
