@@ -13,7 +13,7 @@ namespace GameKash
         private static ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
         
 
-        static void NewChapter(int chapter, Character MainPerson, string incorrect_input_message) {
+        static void NewChapter(int chapter, Character MainPerson) {
             Console.WriteLine();
             Console.WriteLine($"+++[Глава {chapter - 1} пройдена]+++");
             MainPerson.Experience = 15;
@@ -28,7 +28,7 @@ namespace GameKash
             Console.WriteLine("+++[Хотите ли вы применить артефакты/заклинания]+++");
             List<string> choses = MainPerson.Inventory.GetListOfInventory();
             choses.Add("No");
-            string chose = ChoseSimulation(choses, incorrect_input_message);
+            string chose = ChoseSimulation(choses, rm.GetString("InvalidUserCmd"));
             if (chose == "No") {
                 return;
             }
@@ -38,8 +38,8 @@ namespace GameKash
         }
         static string ChoseSimulation(List<string> choses, string incorrect_input_message) {
             string outs = "--[";
-            for (int i = 0; i < choses.Count(); i++) {
-                if(i != choses.Count() - 1)
+            for (int i = 0; i < choses.Count; i++) {
+                if(i != choses.Count - 1)
                     outs += choses[i] + "|";
                 else
                     outs += choses[i];
@@ -187,7 +187,7 @@ namespace GameKash
 
             #endregion
 
-            NewChapter(2, MainPerson, rm.GetString("InvalidUserCmd"));
+            NewChapter(2, MainPerson);
 
         }
     }

@@ -4,8 +4,8 @@ using System.Resources;
 
 namespace GameKash.Artefacts
 {
-    //AquaVitae is Latin for "Living water" (if translated literally). In reality, it is basically a name for a 
-    //medieval vodka. So, I believe this is the best class name I can imagine.
+    // AquaVitae is Latin for "Living water" (if translated literally). In reality, it is basically a name for a 
+    // medieval vodka. So, I believe this is the best class name I can imagine.
     public class AquaVitae : Artefact
     {
         ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());

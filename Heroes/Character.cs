@@ -13,9 +13,14 @@ namespace GameKash
     public enum Conditions { Normal, Weakened, Sick, Poisoned, Paralyzed, Dead }
     public enum Races { Human, Gnome, Elf, Orc, Goblin }
     public enum Genders { Male, Female }
+
     public class Character : IComparable
     {
-        ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
+        private static ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
+        
+        public bool IsShieldActivated;
+        
+        public int ShieldTimeLeft;
         
         public Inventory Inventory;
         private static int NextId { get; set; }
@@ -49,14 +54,25 @@ namespace GameKash
             }
             set
             {
-                if(value > MaxHealth)
-                    throw new Exception(rm.GetString("InvalidHealth"));
-                else if(value < 0)
-                    _currentHealth = 0;
-                else
-                    _currentHealth = value;
-                this.Status();
-                Console.WriteLine($"--[Здоровье {this.Name}: {_currentHealth}]--");
+                if (value < _currentHealth)
+                {
+                    if (!ShieldStatus())
+                    {
+                        if(value > MaxHealth)
+                            throw new Exception(rm.GetString("InvalidHealth"));
+                        else if(value < 0)
+                            _currentHealth = 0;
+                        else
+                            _currentHealth = value;
+                        this.Status();
+                        Console.WriteLine($"--[Здоровье {this.Name}: {_currentHealth}]--");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Shield was activated, so no damage was taken. Your shield can handle {ShieldTimeLeft} more hits.");
+                    }
+                }
+                
             }
         }
         public double MaxHealth { get; }
@@ -110,6 +126,23 @@ namespace GameKash
             if (CurrentHealth == 0)
                 Condition = Conditions.Dead; 
         }
+
+        public bool ShieldStatus()
+        {
+            if (!IsShieldActivated) return false;
+            
+            if (ShieldTimeLeft > 0)
+            {
+                ShieldTimeLeft--;
+            }
+            else
+            {
+                IsShieldActivated = false;
+            }
+
+            return true;
+        }
+        
         public override string ToString()
         {
             return $"Name: {Name}\n" +

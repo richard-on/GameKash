@@ -19,25 +19,7 @@ namespace GameKash.Spells
             _isVerbal = isVerbal;
             _isMotional = isMotional;
         }
-        
-        private bool isSpellAvailable(Wizard wizard)
-        {
-            if (_isVerbal && !wizard.AbilityToTalk)
-            {
-                Console.Error.WriteLine(rm.GetString("NoTalk"));
-            }
-            else if (_isMotional && !wizard.AbilityToMove)
-            {
-                Console.Error.WriteLine(rm.GetString("NoMotion"));
-            }
-            else
-            {
-                return true;
-            }
 
-            return false;
-        }
-        
         public override void MagicCast(Wizard wizard, Character character)
         {
             if (isSpellAvailable(wizard))

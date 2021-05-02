@@ -9,42 +9,33 @@ namespace GameKash.Spells
         private static ResourceManager rm = new ResourceManager("GameKash.Resources", Assembly.GetExecutingAssembly());
 
         private const double MinMana = 50;
-        private static int _validTurnsNum;
-        private static bool _isVerbal;
-        private static bool _isMotional;
+        private int _validTurnsNum;
+        private bool _isVerbal;
+        private bool _isMotional;
         
-        public Shield(bool isVerbal, bool isMotional, int turns) : base(50, isVerbal, isMotional)
+        public Shield(bool isVerbal, bool isMotional) : base(50, isVerbal, isMotional)
         {
             _isVerbal = isVerbal;
             _isMotional = isMotional;
-            _validTurnsNum = turns;
         }
-        
-        private bool isSpellAvailable(Wizard wizard)
-        {
-            if (_isVerbal && !wizard.AbilityToTalk)
-            {
-                Console.Error.WriteLine(rm.GetString("NoTalk"));
-            }
-            else if (_isMotional && !wizard.AbilityToMove)
-            {
-                Console.Error.WriteLine(rm.GetString("NoMotion"));
-            }
-            else
-            {
-                return true;
-            }
 
-            return false;
-        }
-        
-        //After trying so many times, still no idea how to track turns and implement shield(
+        // Shield time is counted by the number of hits. So, if you have 3 _validTurnsNum, it means your character can
+        // handle 3 more hits of any power without taking any damage. This logic is further implemented in Character.cs
+        // CurrentHealth setter
 
         public override void MagicCast(Wizard wizard, Character character)
         {
             if (isSpellAvailable(wizard))
             {
-                throw new System.NotImplementedException();
+                if (wizard.CurrentMana >= MinMana)
+                {
+                    character.IsShieldActivated = true;
+                    character.ShieldTimeLeft = (int)(wizard.CurrentMana / MinMana);
+                }
+                else
+                {
+                    Console.Error.WriteLine(rm.GetString("InvalidPowerValue"));
+                }
             }
         }
 
@@ -52,7 +43,15 @@ namespace GameKash.Spells
         {
             if (isSpellAvailable(wizard))
             {
-                throw new System.NotImplementedException();
+                if (wizard.CurrentMana >= MinMana)
+                {
+                    wizard.IsShieldActivated = true;
+                    wizard.ShieldTimeLeft = (int)(wizard.CurrentMana / MinMana);
+                }
+                else
+                {
+                    Console.Error.WriteLine(rm.GetString("InvalidPowerValue"));
+                }
             }
         }
 
@@ -60,7 +59,15 @@ namespace GameKash.Spells
         {
             if (isSpellAvailable(wizard))
             {
-                throw new System.NotImplementedException();
+                if (power >= MinMana && power % MinMana == 0 && wizard.CurrentMana >= power)
+                {
+                    character.IsShieldActivated = true;
+                    character.ShieldTimeLeft = (int)(power / MinMana);
+                }
+                else
+                {
+                    Console.Error.WriteLine(rm.GetString("InvalidPowerValue"));
+                }
             }
         }
 
@@ -68,7 +75,15 @@ namespace GameKash.Spells
         {
             if (isSpellAvailable(wizard))
             {
-                throw new System.NotImplementedException();
+                if (power >= MinMana && power % MinMana == 0 && wizard.CurrentMana >= power)
+                {
+                    wizard.IsShieldActivated = true;
+                    wizard.ShieldTimeLeft = (int)(power / MinMana);
+                }
+                else
+                {
+                    Console.Error.WriteLine(rm.GetString("InvalidPowerValue"));
+                }
             }
         }
 
