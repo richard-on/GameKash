@@ -24,17 +24,6 @@ namespace GameKash
             Console.WriteLine(MainPerson);
             Console.WriteLine("+++[Ваш инвентарь]+++");
             Console.WriteLine(MainPerson.Inventory);
-            
-            Console.WriteLine("+++[Хотите ли вы применить артефакты/заклинания]+++");
-            List<string> choses = MainPerson.Inventory.GetListOfInventory();
-            choses.Add("No");
-            string chose = ChoseSimulation(choses, rm.GetString("InvalidUserCmd"));
-            if (chose == "No") {
-                return;
-            }
-            else {
-
-            }
         }
         static string ChoseSimulation(List<string> choses, string incorrect_input_message) {
             string outs = "--[";

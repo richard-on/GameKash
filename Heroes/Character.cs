@@ -54,25 +54,22 @@ namespace GameKash
             }
             set
             {
-                if (value < _currentHealth)
+                if (!ShieldStatus())
                 {
-                    if (!ShieldStatus())
-                    {
-                        if(value > MaxHealth)
-                            throw new Exception(rm.GetString("InvalidHealth"));
-                        else if(value < 0)
-                            _currentHealth = 0;
-                        else
-                            _currentHealth = value;
-                        this.Status();
-                        Console.WriteLine($"--[Здоровье {this.Name}: {_currentHealth}]--");
-                    }
+                    if(value > MaxHealth)
+                        throw new Exception(rm.GetString("InvalidHealth"));
+                    else if(value < 0)
+                        _currentHealth = 0;
                     else
-                    {
-                        Console.WriteLine($"Shield was activated, so no damage was taken. Your shield can handle {ShieldTimeLeft} more hits.");
-                    }
+                        _currentHealth = value;
+                    this.Status();
+                    Console.WriteLine($"--[Здоровье {this.Name}: {_currentHealth}]--");
                 }
-                
+                else
+                {
+                    Console.WriteLine($"Shield was activated, so no damage was taken. Your shield can handle {ShieldTimeLeft} more hits.");
+                }
+
             }
         }
         public double MaxHealth { get; }
